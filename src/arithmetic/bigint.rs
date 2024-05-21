@@ -47,6 +47,8 @@ use core::{
     ops::{Deref, DerefMut},
 };
 
+mod bn_mul_mont_fallback;
+
 pub unsafe trait Prime {}
 
 struct Width<M> {
@@ -1316,7 +1318,8 @@ fn limbs_mont_square(r: &mut [Limb], m: &[Limb], n0: &N0) {
         target_arch = "aarch64",
         target_arch = "arm",
         target_arch = "x86_64",
-        target_arch = "x86"
+        target_arch = "x86",
+        // target_arch = "wasm32"
     ))]
     unsafe {
         bn_mul_mont(
@@ -1347,7 +1350,8 @@ fn limbs_mont_square(r: &mut [Limb], m: &[Limb], n0: &N0) {
     target_arch = "aarch64",
     target_arch = "arm",
     target_arch = "x86_64",
-    target_arch = "x86"
+    target_arch = "x86",
+    // target_arch = "wasm32"
 ))]
 prefixed_extern! {
     // `r` and/or 'a' and/or 'b' may alias.

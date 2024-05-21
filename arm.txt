@@ -1,0 +1,659 @@
+   Compiling cc v1.0.79
+   Compiling untrusted v0.7.1
+     Running `CARGO=/Users/xorcist/.rustup/toolchains/nightly-aarch64-apple-darwin/bin/cargo CARGO_CRATE_NAME=cc CARGO_MANIFEST_DIR=/Users/xorcist/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cc-1.0.79 CARGO_PKG_AUTHORS='Alex Crichton <alex@alexcrichton.com>' CARGO_PKG_DESCRIPTION='A build-time dependency for Cargo build scripts to assist in invoking the native
+C compiler to compile native C code into a static archive to be linked into Rust
+code.
+' CARGO_PKG_HOMEPAGE='https://github.com/rust-lang/cc-rs' CARGO_PKG_LICENSE='MIT OR Apache-2.0' CARGO_PKG_LICENSE_FILE='' CARGO_PKG_NAME=cc CARGO_PKG_README=README.md CARGO_PKG_REPOSITORY='https://github.com/rust-lang/cc-rs' CARGO_PKG_RUST_VERSION='' CARGO_PKG_VERSION=1.0.79 CARGO_PKG_VERSION_MAJOR=1 CARGO_PKG_VERSION_MINOR=0 CARGO_PKG_VERSION_PATCH=79 CARGO_PKG_VERSION_PRE='' DYLD_FALLBACK_LIBRARY_PATH='/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/deps:/Users/xorcist/.rustup/toolchains/nightly-aarch64-apple-darwin/lib:/Users/xorcist/.rustup/toolchains/nightly-aarch64-apple-darwin/lib:/Users/xorcist/lib:/usr/local/lib:/usr/lib' rustc --crate-name cc --edition=2018 /Users/xorcist/.cargo/registry/src/index.crates.io-6f17d22bba15001f/cc-1.0.79/src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --diagnostic-width=129 --crate-type lib --emit=dep-info,metadata,link -C embed-bitcode=no -C split-debuginfo=unpacked -C metadata=ef9ca3ac721f5157 -C extra-filename=-ef9ca3ac721f5157 --out-dir /Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/deps -L dependency=/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/deps --cap-lints warn`
+     Running `CARGO=/Users/xorcist/.rustup/toolchains/nightly-aarch64-apple-darwin/bin/cargo CARGO_CRATE_NAME=untrusted CARGO_MANIFEST_DIR=/Users/xorcist/.cargo/registry/src/index.crates.io-6f17d22bba15001f/untrusted-0.7.1 CARGO_PKG_AUTHORS='Brian Smith <brian@briansmith.org>' CARGO_PKG_DESCRIPTION='Safe, fast, zero-panic, zero-crashing, zero-allocation parsing of untrusted inputs in Rust.' CARGO_PKG_HOMEPAGE='' CARGO_PKG_LICENSE=ISC CARGO_PKG_LICENSE_FILE='' CARGO_PKG_NAME=untrusted CARGO_PKG_README=README.md CARGO_PKG_REPOSITORY='https://github.com/briansmith/untrusted' CARGO_PKG_RUST_VERSION='' CARGO_PKG_VERSION=0.7.1 CARGO_PKG_VERSION_MAJOR=0 CARGO_PKG_VERSION_MINOR=7 CARGO_PKG_VERSION_PATCH=1 CARGO_PKG_VERSION_PRE='' DYLD_FALLBACK_LIBRARY_PATH='/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/deps:/Users/xorcist/.rustup/toolchains/nightly-aarch64-apple-darwin/lib:/Users/xorcist/.rustup/toolchains/nightly-aarch64-apple-darwin/lib:/Users/xorcist/lib:/usr/local/lib:/usr/lib' rustc --crate-name untrusted --edition=2018 /Users/xorcist/.cargo/registry/src/index.crates.io-6f17d22bba15001f/untrusted-0.7.1/src/untrusted.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --diagnostic-width=129 --crate-type lib --emit=dep-info,metadata,link -C embed-bitcode=no -C split-debuginfo=unpacked -C debuginfo=2 -C metadata=f947472abf193449 -C extra-filename=-f947472abf193449 --out-dir /Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/deps -L dependency=/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/deps --cap-lints warn`
+   Compiling ring v0.16.20 (/Volumes/Work/Projects/Wasmer/ring-wasi)
+     Running `CARGO=/Users/xorcist/.rustup/toolchains/nightly-aarch64-apple-darwin/bin/cargo CARGO_CRATE_NAME=build_script_build CARGO_MANIFEST_DIR=/Volumes/Work/Projects/Wasmer/ring-wasi CARGO_PKG_AUTHORS='Brian Smith <brian@briansmith.org>:Frank Denis <github@pureftpd.org>' CARGO_PKG_DESCRIPTION='Ring for wasm32-wasi' CARGO_PKG_HOMEPAGE='' CARGO_PKG_LICENSE='' CARGO_PKG_LICENSE_FILE=LICENSE CARGO_PKG_NAME=ring CARGO_PKG_README=doc/link-to-readme.md CARGO_PKG_REPOSITORY='https://github.com/jedisct1/ring-wasi' CARGO_PKG_RUST_VERSION='' CARGO_PKG_VERSION=0.16.20 CARGO_PKG_VERSION_MAJOR=0 CARGO_PKG_VERSION_MINOR=16 CARGO_PKG_VERSION_PATCH=20 CARGO_PKG_VERSION_PRE='' CARGO_PRIMARY_PACKAGE=1 DYLD_FALLBACK_LIBRARY_PATH='/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/deps:/Users/xorcist/.rustup/toolchains/nightly-aarch64-apple-darwin/lib:/Users/xorcist/.rustup/toolchains/nightly-aarch64-apple-darwin/lib:/Users/xorcist/lib:/usr/local/lib:/usr/lib' rustc --crate-name build_script_build --edition=2018 build.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --diagnostic-width=129 --crate-type bin --emit=dep-info,link -C embed-bitcode=no -C split-debuginfo=unpacked --cfg 'feature="alloc"' --cfg 'feature="default"' --cfg 'feature="dev_urandom_fallback"' --cfg 'feature="once_cell"' --cfg 'feature="wasm32_c"' -C metadata=b996662947876727 -C extra-filename=-b996662947876727 --out-dir /Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-b996662947876727 -C incremental=/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/incremental -L dependency=/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/deps --extern cc=/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/deps/libcc-ef9ca3ac721f5157.rlib`
+warning: field `preassemble` is never read
+   --> build.rs:254:5
+    |
+236 | struct AsmTarget {
+    |        --------- field in this struct
+...
+254 |     preassemble: bool,
+    |     ^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` on by default
+
+warning: function `pregenerate_asm_main` is never used
+   --> build.rs:348:4
+    |
+348 | fn pregenerate_asm_main() {
+    |    ^^^^^^^^^^^^^^^^^^^^
+
+warning: function `cc_builder` is never used
+   --> build.rs:474:4
+    |
+474 | fn cc_builder() -> cc::Build {
+    |    ^^^^^^^^^^
+
+warning: `ring` (build script) generated 3 warnings
+     Running `/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-b996662947876727/build-script-build`
+[ring 0.16.20] running "perl" "crypto/fipsmodule/aes/asm/aesv8-armx.pl" "ios64" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/aesv8-armx-ios64.S"
+[ring 0.16.20] running "perl" "crypto/fipsmodule/modes/asm/ghashv8-armx.pl" "ios64" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/ghashv8-armx-ios64.S"
+[ring 0.16.20] running "perl" "crypto/fipsmodule/aes/asm/vpaes-armv8.pl" "ios64" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/vpaes-armv8-ios64.S"
+[ring 0.16.20] running "perl" "crypto/fipsmodule/bn/asm/armv8-mont.pl" "ios64" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/armv8-mont-ios64.S"
+[ring 0.16.20] running "perl" "crypto/chacha/asm/chacha-armv8.pl" "ios64" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/chacha-armv8-ios64.S"
+[ring 0.16.20] running "perl" "crypto/fipsmodule/modes/asm/ghash-neon-armv8.pl" "ios64" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/ghash-neon-armv8-ios64.S"
+[ring 0.16.20] running "perl" "crypto/fipsmodule/sha/asm/sha512-armv8.pl" "ios64" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/sha512-armv8-ios64.S"
+[ring 0.16.20] running "perl" "crypto/fipsmodule/sha/asm/sha512-armv8.pl" "ios64" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/sha256-armv8-ios64.S"
+[ring 0.16.20] OPT_LEVEL = Some("0")
+[ring 0.16.20] TARGET = Some("aarch64-apple-darwin")
+[ring 0.16.20] HOST = Some("aarch64-apple-darwin")
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64-apple-darwin
+[ring 0.16.20] CC_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64_apple_darwin
+[ring 0.16.20] CC_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CC
+[ring 0.16.20] HOST_CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC
+[ring 0.16.20] CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64-apple-darwin
+[ring 0.16.20] CFLAGS_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64_apple_darwin
+[ring 0.16.20] CFLAGS_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CFLAGS
+[ring 0.16.20] HOST_CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS
+[ring 0.16.20] CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+[ring 0.16.20] CRATE_CC_NO_DEFAULTS = None
+[ring 0.16.20] DEBUG = Some("true")
+[ring 0.16.20] CARGO_CFG_TARGET_FEATURE = Some("aes,crc,dit,dotprod,dpb,dpb2,fcma,fhm,flagm,fp16,frintts,jsconv,lor,lse,neon,paca,pacg,pan,pmuv3,ras,rcpc,rcpc2,rdm,sb,sha2,sha3,ssbs,v8.1a,v8.2a,v8.3a,v8.4a,vh")
+[ring 0.16.20] running "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-gdwarf-2" "-fno-omit-frame-pointer" "-arch" "arm64" "-I" "include" "-I" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out" "-Wall" "-Wextra" "-pedantic" "-pedantic-errors" "-Wall" "-Wextra" "-Wcast-align" "-Wcast-qual" "-Wconversion" "-Wenum-compare" "-Wfloat-equal" "-Wformat=2" "-Winline" "-Winvalid-pch" "-Wmissing-field-initializers" "-Wmissing-include-dirs" "-Wredundant-decls" "-Wshadow" "-Wsign-compare" "-Wsign-conversion" "-Wundef" "-Wuninitialized" "-Wwrite-strings" "-fno-strict-aliasing" "-fvisibility=hidden" "-fstack-protector" "-gfull" "-Werror" "-c" "-o/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/aesv8-armx-ios64.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/aesv8-armx-ios64.S"
+[ring 0.16.20] OPT_LEVEL = Some("0")
+[ring 0.16.20] TARGET = Some("aarch64-apple-darwin")
+[ring 0.16.20] HOST = Some("aarch64-apple-darwin")
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64-apple-darwin
+[ring 0.16.20] CC_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64_apple_darwin
+[ring 0.16.20] CC_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CC
+[ring 0.16.20] HOST_CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC
+[ring 0.16.20] CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64-apple-darwin
+[ring 0.16.20] CFLAGS_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64_apple_darwin
+[ring 0.16.20] CFLAGS_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CFLAGS
+[ring 0.16.20] HOST_CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS
+[ring 0.16.20] CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+[ring 0.16.20] CRATE_CC_NO_DEFAULTS = None
+[ring 0.16.20] DEBUG = Some("true")
+[ring 0.16.20] CARGO_CFG_TARGET_FEATURE = Some("aes,crc,dit,dotprod,dpb,dpb2,fcma,fhm,flagm,fp16,frintts,jsconv,lor,lse,neon,paca,pacg,pan,pmuv3,ras,rcpc,rcpc2,rdm,sb,sha2,sha3,ssbs,v8.1a,v8.2a,v8.3a,v8.4a,vh")
+[ring 0.16.20] running "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-gdwarf-2" "-fno-omit-frame-pointer" "-arch" "arm64" "-I" "include" "-I" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out" "-Wall" "-Wextra" "-pedantic" "-pedantic-errors" "-Wall" "-Wextra" "-Wcast-align" "-Wcast-qual" "-Wconversion" "-Wenum-compare" "-Wfloat-equal" "-Wformat=2" "-Winline" "-Winvalid-pch" "-Wmissing-field-initializers" "-Wmissing-include-dirs" "-Wredundant-decls" "-Wshadow" "-Wsign-compare" "-Wsign-conversion" "-Wundef" "-Wuninitialized" "-Wwrite-strings" "-fno-strict-aliasing" "-fvisibility=hidden" "-fstack-protector" "-gfull" "-Werror" "-c" "-o/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/ghashv8-armx-ios64.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/ghashv8-armx-ios64.S"
+[ring 0.16.20] OPT_LEVEL = Some("0")
+[ring 0.16.20] TARGET = Some("aarch64-apple-darwin")
+[ring 0.16.20] HOST = Some("aarch64-apple-darwin")
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64-apple-darwin
+[ring 0.16.20] CC_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64_apple_darwin
+[ring 0.16.20] CC_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CC
+[ring 0.16.20] HOST_CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC
+[ring 0.16.20] CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64-apple-darwin
+[ring 0.16.20] CFLAGS_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64_apple_darwin
+[ring 0.16.20] CFLAGS_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CFLAGS
+[ring 0.16.20] HOST_CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS
+[ring 0.16.20] CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+[ring 0.16.20] CRATE_CC_NO_DEFAULTS = None
+[ring 0.16.20] DEBUG = Some("true")
+[ring 0.16.20] CARGO_CFG_TARGET_FEATURE = Some("aes,crc,dit,dotprod,dpb,dpb2,fcma,fhm,flagm,fp16,frintts,jsconv,lor,lse,neon,paca,pacg,pan,pmuv3,ras,rcpc,rcpc2,rdm,sb,sha2,sha3,ssbs,v8.1a,v8.2a,v8.3a,v8.4a,vh")
+[ring 0.16.20] running "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-gdwarf-2" "-fno-omit-frame-pointer" "-arch" "arm64" "-I" "include" "-I" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out" "-Wall" "-Wextra" "-pedantic" "-pedantic-errors" "-Wall" "-Wextra" "-Wcast-align" "-Wcast-qual" "-Wconversion" "-Wenum-compare" "-Wfloat-equal" "-Wformat=2" "-Winline" "-Winvalid-pch" "-Wmissing-field-initializers" "-Wmissing-include-dirs" "-Wredundant-decls" "-Wshadow" "-Wsign-compare" "-Wsign-conversion" "-Wundef" "-Wuninitialized" "-Wwrite-strings" "-fno-strict-aliasing" "-fvisibility=hidden" "-fstack-protector" "-gfull" "-Werror" "-c" "-o/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/vpaes-armv8-ios64.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/vpaes-armv8-ios64.S"
+[ring 0.16.20] OPT_LEVEL = Some("0")
+[ring 0.16.20] TARGET = Some("aarch64-apple-darwin")
+[ring 0.16.20] HOST = Some("aarch64-apple-darwin")
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64-apple-darwin
+[ring 0.16.20] CC_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64_apple_darwin
+[ring 0.16.20] CC_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CC
+[ring 0.16.20] HOST_CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC
+[ring 0.16.20] CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64-apple-darwin
+[ring 0.16.20] CFLAGS_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64_apple_darwin
+[ring 0.16.20] CFLAGS_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CFLAGS
+[ring 0.16.20] HOST_CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS
+[ring 0.16.20] CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+[ring 0.16.20] CRATE_CC_NO_DEFAULTS = None
+[ring 0.16.20] DEBUG = Some("true")
+[ring 0.16.20] CARGO_CFG_TARGET_FEATURE = Some("aes,crc,dit,dotprod,dpb,dpb2,fcma,fhm,flagm,fp16,frintts,jsconv,lor,lse,neon,paca,pacg,pan,pmuv3,ras,rcpc,rcpc2,rdm,sb,sha2,sha3,ssbs,v8.1a,v8.2a,v8.3a,v8.4a,vh")
+[ring 0.16.20] running "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-gdwarf-2" "-fno-omit-frame-pointer" "-arch" "arm64" "-I" "include" "-I" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out" "-Wall" "-Wextra" "-pedantic" "-pedantic-errors" "-Wall" "-Wextra" "-Wcast-align" "-Wcast-qual" "-Wconversion" "-Wenum-compare" "-Wfloat-equal" "-Wformat=2" "-Winline" "-Winvalid-pch" "-Wmissing-field-initializers" "-Wmissing-include-dirs" "-Wredundant-decls" "-Wshadow" "-Wsign-compare" "-Wsign-conversion" "-Wundef" "-Wuninitialized" "-Wwrite-strings" "-fno-strict-aliasing" "-fvisibility=hidden" "-fstack-protector" "-gfull" "-Werror" "-c" "-o/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/armv8-mont-ios64.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/armv8-mont-ios64.S"
+[ring 0.16.20] OPT_LEVEL = Some("0")
+[ring 0.16.20] TARGET = Some("aarch64-apple-darwin")
+[ring 0.16.20] HOST = Some("aarch64-apple-darwin")
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64-apple-darwin
+[ring 0.16.20] CC_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64_apple_darwin
+[ring 0.16.20] CC_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CC
+[ring 0.16.20] HOST_CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC
+[ring 0.16.20] CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64-apple-darwin
+[ring 0.16.20] CFLAGS_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64_apple_darwin
+[ring 0.16.20] CFLAGS_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CFLAGS
+[ring 0.16.20] HOST_CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS
+[ring 0.16.20] CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+[ring 0.16.20] CRATE_CC_NO_DEFAULTS = None
+[ring 0.16.20] DEBUG = Some("true")
+[ring 0.16.20] CARGO_CFG_TARGET_FEATURE = Some("aes,crc,dit,dotprod,dpb,dpb2,fcma,fhm,flagm,fp16,frintts,jsconv,lor,lse,neon,paca,pacg,pan,pmuv3,ras,rcpc,rcpc2,rdm,sb,sha2,sha3,ssbs,v8.1a,v8.2a,v8.3a,v8.4a,vh")
+[ring 0.16.20] running "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-gdwarf-2" "-fno-omit-frame-pointer" "-arch" "arm64" "-I" "include" "-I" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out" "-Wall" "-Wextra" "-pedantic" "-pedantic-errors" "-Wall" "-Wextra" "-Wcast-align" "-Wcast-qual" "-Wconversion" "-Wenum-compare" "-Wfloat-equal" "-Wformat=2" "-Winline" "-Winvalid-pch" "-Wmissing-field-initializers" "-Wmissing-include-dirs" "-Wredundant-decls" "-Wshadow" "-Wsign-compare" "-Wsign-conversion" "-Wundef" "-Wuninitialized" "-Wwrite-strings" "-fno-strict-aliasing" "-fvisibility=hidden" "-fstack-protector" "-gfull" "-Werror" "-c" "-o/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/chacha-armv8-ios64.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/chacha-armv8-ios64.S"
+[ring 0.16.20] OPT_LEVEL = Some("0")
+[ring 0.16.20] TARGET = Some("aarch64-apple-darwin")
+[ring 0.16.20] HOST = Some("aarch64-apple-darwin")
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64-apple-darwin
+[ring 0.16.20] CC_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64_apple_darwin
+[ring 0.16.20] CC_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CC
+[ring 0.16.20] HOST_CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC
+[ring 0.16.20] CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64-apple-darwin
+[ring 0.16.20] CFLAGS_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64_apple_darwin
+[ring 0.16.20] CFLAGS_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CFLAGS
+[ring 0.16.20] HOST_CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS
+[ring 0.16.20] CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+[ring 0.16.20] CRATE_CC_NO_DEFAULTS = None
+[ring 0.16.20] DEBUG = Some("true")
+[ring 0.16.20] CARGO_CFG_TARGET_FEATURE = Some("aes,crc,dit,dotprod,dpb,dpb2,fcma,fhm,flagm,fp16,frintts,jsconv,lor,lse,neon,paca,pacg,pan,pmuv3,ras,rcpc,rcpc2,rdm,sb,sha2,sha3,ssbs,v8.1a,v8.2a,v8.3a,v8.4a,vh")
+[ring 0.16.20] running "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-gdwarf-2" "-fno-omit-frame-pointer" "-arch" "arm64" "-I" "include" "-I" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out" "-Wall" "-Wextra" "-pedantic" "-pedantic-errors" "-Wall" "-Wextra" "-Wcast-align" "-Wcast-qual" "-Wconversion" "-Wenum-compare" "-Wfloat-equal" "-Wformat=2" "-Winline" "-Winvalid-pch" "-Wmissing-field-initializers" "-Wmissing-include-dirs" "-Wredundant-decls" "-Wshadow" "-Wsign-compare" "-Wsign-conversion" "-Wundef" "-Wuninitialized" "-Wwrite-strings" "-fno-strict-aliasing" "-fvisibility=hidden" "-fstack-protector" "-gfull" "-Werror" "-c" "-o/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/ghash-neon-armv8-ios64.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/ghash-neon-armv8-ios64.S"
+[ring 0.16.20] OPT_LEVEL = Some("0")
+[ring 0.16.20] TARGET = Some("aarch64-apple-darwin")
+[ring 0.16.20] HOST = Some("aarch64-apple-darwin")
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64-apple-darwin
+[ring 0.16.20] CC_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64_apple_darwin
+[ring 0.16.20] CC_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CC
+[ring 0.16.20] HOST_CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC
+[ring 0.16.20] CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64-apple-darwin
+[ring 0.16.20] CFLAGS_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64_apple_darwin
+[ring 0.16.20] CFLAGS_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CFLAGS
+[ring 0.16.20] HOST_CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS
+[ring 0.16.20] CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+[ring 0.16.20] CRATE_CC_NO_DEFAULTS = None
+[ring 0.16.20] DEBUG = Some("true")
+[ring 0.16.20] CARGO_CFG_TARGET_FEATURE = Some("aes,crc,dit,dotprod,dpb,dpb2,fcma,fhm,flagm,fp16,frintts,jsconv,lor,lse,neon,paca,pacg,pan,pmuv3,ras,rcpc,rcpc2,rdm,sb,sha2,sha3,ssbs,v8.1a,v8.2a,v8.3a,v8.4a,vh")
+[ring 0.16.20] running "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-gdwarf-2" "-fno-omit-frame-pointer" "-arch" "arm64" "-I" "include" "-I" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out" "-Wall" "-Wextra" "-pedantic" "-pedantic-errors" "-Wall" "-Wextra" "-Wcast-align" "-Wcast-qual" "-Wconversion" "-Wenum-compare" "-Wfloat-equal" "-Wformat=2" "-Winline" "-Winvalid-pch" "-Wmissing-field-initializers" "-Wmissing-include-dirs" "-Wredundant-decls" "-Wshadow" "-Wsign-compare" "-Wsign-conversion" "-Wundef" "-Wuninitialized" "-Wwrite-strings" "-fno-strict-aliasing" "-fvisibility=hidden" "-fstack-protector" "-gfull" "-Werror" "-c" "-o/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/sha512-armv8-ios64.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/sha512-armv8-ios64.S"
+[ring 0.16.20] OPT_LEVEL = Some("0")
+[ring 0.16.20] TARGET = Some("aarch64-apple-darwin")
+[ring 0.16.20] HOST = Some("aarch64-apple-darwin")
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64-apple-darwin
+[ring 0.16.20] CC_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64_apple_darwin
+[ring 0.16.20] CC_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CC
+[ring 0.16.20] HOST_CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC
+[ring 0.16.20] CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64-apple-darwin
+[ring 0.16.20] CFLAGS_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64_apple_darwin
+[ring 0.16.20] CFLAGS_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CFLAGS
+[ring 0.16.20] HOST_CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS
+[ring 0.16.20] CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+[ring 0.16.20] CRATE_CC_NO_DEFAULTS = None
+[ring 0.16.20] DEBUG = Some("true")
+[ring 0.16.20] CARGO_CFG_TARGET_FEATURE = Some("aes,crc,dit,dotprod,dpb,dpb2,fcma,fhm,flagm,fp16,frintts,jsconv,lor,lse,neon,paca,pacg,pan,pmuv3,ras,rcpc,rcpc2,rdm,sb,sha2,sha3,ssbs,v8.1a,v8.2a,v8.3a,v8.4a,vh")
+[ring 0.16.20] running "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-gdwarf-2" "-fno-omit-frame-pointer" "-arch" "arm64" "-I" "include" "-I" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out" "-Wall" "-Wextra" "-pedantic" "-pedantic-errors" "-Wall" "-Wextra" "-Wcast-align" "-Wcast-qual" "-Wconversion" "-Wenum-compare" "-Wfloat-equal" "-Wformat=2" "-Winline" "-Winvalid-pch" "-Wmissing-field-initializers" "-Wmissing-include-dirs" "-Wredundant-decls" "-Wshadow" "-Wsign-compare" "-Wsign-conversion" "-Wundef" "-Wuninitialized" "-Wwrite-strings" "-fno-strict-aliasing" "-fvisibility=hidden" "-fstack-protector" "-gfull" "-Werror" "-c" "-o/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/sha256-armv8-ios64.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/sha256-armv8-ios64.S"
+[ring 0.16.20] OPT_LEVEL = Some("0")
+[ring 0.16.20] TARGET = Some("aarch64-apple-darwin")
+[ring 0.16.20] HOST = Some("aarch64-apple-darwin")
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64-apple-darwin
+[ring 0.16.20] CC_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64_apple_darwin
+[ring 0.16.20] CC_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CC
+[ring 0.16.20] HOST_CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC
+[ring 0.16.20] CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64-apple-darwin
+[ring 0.16.20] CFLAGS_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64_apple_darwin
+[ring 0.16.20] CFLAGS_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CFLAGS
+[ring 0.16.20] HOST_CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS
+[ring 0.16.20] CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+[ring 0.16.20] CRATE_CC_NO_DEFAULTS = None
+[ring 0.16.20] DEBUG = Some("true")
+[ring 0.16.20] CARGO_CFG_TARGET_FEATURE = Some("aes,crc,dit,dotprod,dpb,dpb2,fcma,fhm,flagm,fp16,frintts,jsconv,lor,lse,neon,paca,pacg,pan,pmuv3,ras,rcpc,rcpc2,rdm,sb,sha2,sha3,ssbs,v8.1a,v8.2a,v8.3a,v8.4a,vh")
+[ring 0.16.20] running "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-gdwarf-2" "-fno-omit-frame-pointer" "-arch" "arm64" "-I" "include" "-I" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out" "-Wall" "-Wextra" "-std=c1x" "-Wbad-function-cast" "-Wnested-externs" "-Wstrict-prototypes" "-pedantic" "-pedantic-errors" "-Wall" "-Wextra" "-Wcast-align" "-Wcast-qual" "-Wconversion" "-Wenum-compare" "-Wfloat-equal" "-Wformat=2" "-Winline" "-Winvalid-pch" "-Wmissing-field-initializers" "-Wmissing-include-dirs" "-Wredundant-decls" "-Wshadow" "-Wsign-compare" "-Wsign-conversion" "-Wundef" "-Wuninitialized" "-Wwrite-strings" "-fno-strict-aliasing" "-fvisibility=hidden" "-fstack-protector" "-gfull" "-Werror" "-c" "-o/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/aes_nohw.o" "crypto/fipsmodule/aes/aes_nohw.c"
+[ring 0.16.20] OPT_LEVEL = Some("0")
+[ring 0.16.20] TARGET = Some("aarch64-apple-darwin")
+[ring 0.16.20] HOST = Some("aarch64-apple-darwin")
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64-apple-darwin
+[ring 0.16.20] CC_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64_apple_darwin
+[ring 0.16.20] CC_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CC
+[ring 0.16.20] HOST_CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC
+[ring 0.16.20] CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64-apple-darwin
+[ring 0.16.20] CFLAGS_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64_apple_darwin
+[ring 0.16.20] CFLAGS_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CFLAGS
+[ring 0.16.20] HOST_CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS
+[ring 0.16.20] CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+[ring 0.16.20] CRATE_CC_NO_DEFAULTS = None
+[ring 0.16.20] DEBUG = Some("true")
+[ring 0.16.20] CARGO_CFG_TARGET_FEATURE = Some("aes,crc,dit,dotprod,dpb,dpb2,fcma,fhm,flagm,fp16,frintts,jsconv,lor,lse,neon,paca,pacg,pan,pmuv3,ras,rcpc,rcpc2,rdm,sb,sha2,sha3,ssbs,v8.1a,v8.2a,v8.3a,v8.4a,vh")
+[ring 0.16.20] running "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-gdwarf-2" "-fno-omit-frame-pointer" "-arch" "arm64" "-I" "include" "-I" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out" "-Wall" "-Wextra" "-std=c1x" "-Wbad-function-cast" "-Wnested-externs" "-Wstrict-prototypes" "-pedantic" "-pedantic-errors" "-Wall" "-Wextra" "-Wcast-align" "-Wcast-qual" "-Wconversion" "-Wenum-compare" "-Wfloat-equal" "-Wformat=2" "-Winline" "-Winvalid-pch" "-Wmissing-field-initializers" "-Wmissing-include-dirs" "-Wredundant-decls" "-Wshadow" "-Wsign-compare" "-Wsign-conversion" "-Wundef" "-Wuninitialized" "-Wwrite-strings" "-fno-strict-aliasing" "-fvisibility=hidden" "-fstack-protector" "-gfull" "-Werror" "-c" "-o/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/montgomery.o" "crypto/fipsmodule/bn/montgomery.c"
+[ring 0.16.20] OPT_LEVEL = Some("0")
+[ring 0.16.20] TARGET = Some("aarch64-apple-darwin")
+[ring 0.16.20] HOST = Some("aarch64-apple-darwin")
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64-apple-darwin
+[ring 0.16.20] CC_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64_apple_darwin
+[ring 0.16.20] CC_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CC
+[ring 0.16.20] HOST_CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC
+[ring 0.16.20] CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64-apple-darwin
+[ring 0.16.20] CFLAGS_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64_apple_darwin
+[ring 0.16.20] CFLAGS_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CFLAGS
+[ring 0.16.20] HOST_CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS
+[ring 0.16.20] CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+[ring 0.16.20] CRATE_CC_NO_DEFAULTS = None
+[ring 0.16.20] DEBUG = Some("true")
+[ring 0.16.20] CARGO_CFG_TARGET_FEATURE = Some("aes,crc,dit,dotprod,dpb,dpb2,fcma,fhm,flagm,fp16,frintts,jsconv,lor,lse,neon,paca,pacg,pan,pmuv3,ras,rcpc,rcpc2,rdm,sb,sha2,sha3,ssbs,v8.1a,v8.2a,v8.3a,v8.4a,vh")
+[ring 0.16.20] running "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-gdwarf-2" "-fno-omit-frame-pointer" "-arch" "arm64" "-I" "include" "-I" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out" "-Wall" "-Wextra" "-std=c1x" "-Wbad-function-cast" "-Wnested-externs" "-Wstrict-prototypes" "-pedantic" "-pedantic-errors" "-Wall" "-Wextra" "-Wcast-align" "-Wcast-qual" "-Wconversion" "-Wenum-compare" "-Wfloat-equal" "-Wformat=2" "-Winline" "-Winvalid-pch" "-Wmissing-field-initializers" "-Wmissing-include-dirs" "-Wredundant-decls" "-Wshadow" "-Wsign-compare" "-Wsign-conversion" "-Wundef" "-Wuninitialized" "-Wwrite-strings" "-fno-strict-aliasing" "-fvisibility=hidden" "-fstack-protector" "-gfull" "-Werror" "-c" "-o/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/montgomery_inv.o" "crypto/fipsmodule/bn/montgomery_inv.c"
+[ring 0.16.20] OPT_LEVEL = Some("0")
+[ring 0.16.20] TARGET = Some("aarch64-apple-darwin")
+[ring 0.16.20] HOST = Some("aarch64-apple-darwin")
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64-apple-darwin
+[ring 0.16.20] CC_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64_apple_darwin
+[ring 0.16.20] CC_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CC
+[ring 0.16.20] HOST_CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC
+[ring 0.16.20] CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64-apple-darwin
+[ring 0.16.20] CFLAGS_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64_apple_darwin
+[ring 0.16.20] CFLAGS_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CFLAGS
+[ring 0.16.20] HOST_CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS
+[ring 0.16.20] CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+[ring 0.16.20] CRATE_CC_NO_DEFAULTS = None
+[ring 0.16.20] DEBUG = Some("true")
+[ring 0.16.20] CARGO_CFG_TARGET_FEATURE = Some("aes,crc,dit,dotprod,dpb,dpb2,fcma,fhm,flagm,fp16,frintts,jsconv,lor,lse,neon,paca,pacg,pan,pmuv3,ras,rcpc,rcpc2,rdm,sb,sha2,sha3,ssbs,v8.1a,v8.2a,v8.3a,v8.4a,vh")
+[ring 0.16.20] running "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-gdwarf-2" "-fno-omit-frame-pointer" "-arch" "arm64" "-I" "include" "-I" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out" "-Wall" "-Wextra" "-std=c1x" "-Wbad-function-cast" "-Wnested-externs" "-Wstrict-prototypes" "-pedantic" "-pedantic-errors" "-Wall" "-Wextra" "-Wcast-align" "-Wcast-qual" "-Wconversion" "-Wenum-compare" "-Wfloat-equal" "-Wformat=2" "-Winline" "-Winvalid-pch" "-Wmissing-field-initializers" "-Wmissing-include-dirs" "-Wredundant-decls" "-Wshadow" "-Wsign-compare" "-Wsign-conversion" "-Wundef" "-Wuninitialized" "-Wwrite-strings" "-fno-strict-aliasing" "-fvisibility=hidden" "-fstack-protector" "-gfull" "-Werror" "-c" "-o/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/limbs.o" "crypto/limbs/limbs.c"
+[ring 0.16.20] OPT_LEVEL = Some("0")
+[ring 0.16.20] TARGET = Some("aarch64-apple-darwin")
+[ring 0.16.20] HOST = Some("aarch64-apple-darwin")
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64-apple-darwin
+[ring 0.16.20] CC_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64_apple_darwin
+[ring 0.16.20] CC_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CC
+[ring 0.16.20] HOST_CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC
+[ring 0.16.20] CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64-apple-darwin
+[ring 0.16.20] CFLAGS_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64_apple_darwin
+[ring 0.16.20] CFLAGS_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CFLAGS
+[ring 0.16.20] HOST_CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS
+[ring 0.16.20] CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+[ring 0.16.20] CRATE_CC_NO_DEFAULTS = None
+[ring 0.16.20] DEBUG = Some("true")
+[ring 0.16.20] CARGO_CFG_TARGET_FEATURE = Some("aes,crc,dit,dotprod,dpb,dpb2,fcma,fhm,flagm,fp16,frintts,jsconv,lor,lse,neon,paca,pacg,pan,pmuv3,ras,rcpc,rcpc2,rdm,sb,sha2,sha3,ssbs,v8.1a,v8.2a,v8.3a,v8.4a,vh")
+[ring 0.16.20] running "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-gdwarf-2" "-fno-omit-frame-pointer" "-arch" "arm64" "-I" "include" "-I" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out" "-Wall" "-Wextra" "-std=c1x" "-Wbad-function-cast" "-Wnested-externs" "-Wstrict-prototypes" "-pedantic" "-pedantic-errors" "-Wall" "-Wextra" "-Wcast-align" "-Wcast-qual" "-Wconversion" "-Wenum-compare" "-Wfloat-equal" "-Wformat=2" "-Winline" "-Winvalid-pch" "-Wmissing-field-initializers" "-Wmissing-include-dirs" "-Wredundant-decls" "-Wshadow" "-Wsign-compare" "-Wsign-conversion" "-Wundef" "-Wuninitialized" "-Wwrite-strings" "-fno-strict-aliasing" "-fvisibility=hidden" "-fstack-protector" "-gfull" "-Werror" "-c" "-o/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/mem.o" "crypto/mem.c"
+[ring 0.16.20] OPT_LEVEL = Some("0")
+[ring 0.16.20] TARGET = Some("aarch64-apple-darwin")
+[ring 0.16.20] HOST = Some("aarch64-apple-darwin")
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64-apple-darwin
+[ring 0.16.20] CC_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64_apple_darwin
+[ring 0.16.20] CC_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CC
+[ring 0.16.20] HOST_CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC
+[ring 0.16.20] CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64-apple-darwin
+[ring 0.16.20] CFLAGS_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64_apple_darwin
+[ring 0.16.20] CFLAGS_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CFLAGS
+[ring 0.16.20] HOST_CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS
+[ring 0.16.20] CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+[ring 0.16.20] CRATE_CC_NO_DEFAULTS = None
+[ring 0.16.20] DEBUG = Some("true")
+[ring 0.16.20] CARGO_CFG_TARGET_FEATURE = Some("aes,crc,dit,dotprod,dpb,dpb2,fcma,fhm,flagm,fp16,frintts,jsconv,lor,lse,neon,paca,pacg,pan,pmuv3,ras,rcpc,rcpc2,rdm,sb,sha2,sha3,ssbs,v8.1a,v8.2a,v8.3a,v8.4a,vh")
+[ring 0.16.20] running "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-gdwarf-2" "-fno-omit-frame-pointer" "-arch" "arm64" "-I" "include" "-I" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out" "-Wall" "-Wextra" "-std=c1x" "-Wbad-function-cast" "-Wnested-externs" "-Wstrict-prototypes" "-pedantic" "-pedantic-errors" "-Wall" "-Wextra" "-Wcast-align" "-Wcast-qual" "-Wconversion" "-Wenum-compare" "-Wfloat-equal" "-Wformat=2" "-Winline" "-Winvalid-pch" "-Wmissing-field-initializers" "-Wmissing-include-dirs" "-Wredundant-decls" "-Wshadow" "-Wsign-compare" "-Wsign-conversion" "-Wundef" "-Wuninitialized" "-Wwrite-strings" "-fno-strict-aliasing" "-fvisibility=hidden" "-fstack-protector" "-gfull" "-Werror" "-c" "-o/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/poly1305.o" "crypto/poly1305/poly1305.c"
+[ring 0.16.20] OPT_LEVEL = Some("0")
+[ring 0.16.20] TARGET = Some("aarch64-apple-darwin")
+[ring 0.16.20] HOST = Some("aarch64-apple-darwin")
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64-apple-darwin
+[ring 0.16.20] CC_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64_apple_darwin
+[ring 0.16.20] CC_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CC
+[ring 0.16.20] HOST_CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC
+[ring 0.16.20] CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64-apple-darwin
+[ring 0.16.20] CFLAGS_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64_apple_darwin
+[ring 0.16.20] CFLAGS_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CFLAGS
+[ring 0.16.20] HOST_CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS
+[ring 0.16.20] CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+[ring 0.16.20] CRATE_CC_NO_DEFAULTS = None
+[ring 0.16.20] DEBUG = Some("true")
+[ring 0.16.20] CARGO_CFG_TARGET_FEATURE = Some("aes,crc,dit,dotprod,dpb,dpb2,fcma,fhm,flagm,fp16,frintts,jsconv,lor,lse,neon,paca,pacg,pan,pmuv3,ras,rcpc,rcpc2,rdm,sb,sha2,sha3,ssbs,v8.1a,v8.2a,v8.3a,v8.4a,vh")
+[ring 0.16.20] running "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-gdwarf-2" "-fno-omit-frame-pointer" "-arch" "arm64" "-I" "include" "-I" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out" "-Wall" "-Wextra" "-std=c1x" "-Wbad-function-cast" "-Wnested-externs" "-Wstrict-prototypes" "-pedantic" "-pedantic-errors" "-Wall" "-Wextra" "-Wcast-align" "-Wcast-qual" "-Wconversion" "-Wenum-compare" "-Wfloat-equal" "-Wformat=2" "-Winline" "-Winvalid-pch" "-Wmissing-field-initializers" "-Wmissing-include-dirs" "-Wredundant-decls" "-Wshadow" "-Wsign-compare" "-Wsign-conversion" "-Wundef" "-Wuninitialized" "-Wwrite-strings" "-fno-strict-aliasing" "-fvisibility=hidden" "-fstack-protector" "-gfull" "-Werror" "-c" "-o/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/crypto.o" "crypto/crypto.c"
+[ring 0.16.20] OPT_LEVEL = Some("0")
+[ring 0.16.20] TARGET = Some("aarch64-apple-darwin")
+[ring 0.16.20] HOST = Some("aarch64-apple-darwin")
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64-apple-darwin
+[ring 0.16.20] CC_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64_apple_darwin
+[ring 0.16.20] CC_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CC
+[ring 0.16.20] HOST_CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC
+[ring 0.16.20] CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64-apple-darwin
+[ring 0.16.20] CFLAGS_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64_apple_darwin
+[ring 0.16.20] CFLAGS_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CFLAGS
+[ring 0.16.20] HOST_CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS
+[ring 0.16.20] CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+[ring 0.16.20] CRATE_CC_NO_DEFAULTS = None
+[ring 0.16.20] DEBUG = Some("true")
+[ring 0.16.20] CARGO_CFG_TARGET_FEATURE = Some("aes,crc,dit,dotprod,dpb,dpb2,fcma,fhm,flagm,fp16,frintts,jsconv,lor,lse,neon,paca,pacg,pan,pmuv3,ras,rcpc,rcpc2,rdm,sb,sha2,sha3,ssbs,v8.1a,v8.2a,v8.3a,v8.4a,vh")
+[ring 0.16.20] running "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-gdwarf-2" "-fno-omit-frame-pointer" "-arch" "arm64" "-I" "include" "-I" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out" "-Wall" "-Wextra" "-std=c1x" "-Wbad-function-cast" "-Wnested-externs" "-Wstrict-prototypes" "-pedantic" "-pedantic-errors" "-Wall" "-Wextra" "-Wcast-align" "-Wcast-qual" "-Wconversion" "-Wenum-compare" "-Wfloat-equal" "-Wformat=2" "-Winline" "-Winvalid-pch" "-Wmissing-field-initializers" "-Wmissing-include-dirs" "-Wredundant-decls" "-Wshadow" "-Wsign-compare" "-Wsign-conversion" "-Wundef" "-Wuninitialized" "-Wwrite-strings" "-fno-strict-aliasing" "-fvisibility=hidden" "-fstack-protector" "-gfull" "-Werror" "-c" "-o/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/curve25519.o" "crypto/curve25519/curve25519.c"
+[ring 0.16.20] OPT_LEVEL = Some("0")
+[ring 0.16.20] TARGET = Some("aarch64-apple-darwin")
+[ring 0.16.20] HOST = Some("aarch64-apple-darwin")
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64-apple-darwin
+[ring 0.16.20] CC_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64_apple_darwin
+[ring 0.16.20] CC_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CC
+[ring 0.16.20] HOST_CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC
+[ring 0.16.20] CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64-apple-darwin
+[ring 0.16.20] CFLAGS_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64_apple_darwin
+[ring 0.16.20] CFLAGS_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CFLAGS
+[ring 0.16.20] HOST_CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS
+[ring 0.16.20] CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+[ring 0.16.20] CRATE_CC_NO_DEFAULTS = None
+[ring 0.16.20] DEBUG = Some("true")
+[ring 0.16.20] CARGO_CFG_TARGET_FEATURE = Some("aes,crc,dit,dotprod,dpb,dpb2,fcma,fhm,flagm,fp16,frintts,jsconv,lor,lse,neon,paca,pacg,pan,pmuv3,ras,rcpc,rcpc2,rdm,sb,sha2,sha3,ssbs,v8.1a,v8.2a,v8.3a,v8.4a,vh")
+[ring 0.16.20] running "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-gdwarf-2" "-fno-omit-frame-pointer" "-arch" "arm64" "-I" "include" "-I" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out" "-Wall" "-Wextra" "-std=c1x" "-Wbad-function-cast" "-Wnested-externs" "-Wstrict-prototypes" "-pedantic" "-pedantic-errors" "-Wall" "-Wextra" "-Wcast-align" "-Wcast-qual" "-Wconversion" "-Wenum-compare" "-Wfloat-equal" "-Wformat=2" "-Winline" "-Winvalid-pch" "-Wmissing-field-initializers" "-Wmissing-include-dirs" "-Wredundant-decls" "-Wshadow" "-Wsign-compare" "-Wsign-conversion" "-Wundef" "-Wuninitialized" "-Wwrite-strings" "-fno-strict-aliasing" "-fvisibility=hidden" "-fstack-protector" "-gfull" "-Werror" "-c" "-o/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/ecp_nistz.o" "crypto/fipsmodule/ec/ecp_nistz.c"
+[ring 0.16.20] OPT_LEVEL = Some("0")
+[ring 0.16.20] TARGET = Some("aarch64-apple-darwin")
+[ring 0.16.20] HOST = Some("aarch64-apple-darwin")
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64-apple-darwin
+[ring 0.16.20] CC_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64_apple_darwin
+[ring 0.16.20] CC_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CC
+[ring 0.16.20] HOST_CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC
+[ring 0.16.20] CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64-apple-darwin
+[ring 0.16.20] CFLAGS_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64_apple_darwin
+[ring 0.16.20] CFLAGS_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CFLAGS
+[ring 0.16.20] HOST_CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS
+[ring 0.16.20] CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+[ring 0.16.20] CRATE_CC_NO_DEFAULTS = None
+[ring 0.16.20] DEBUG = Some("true")
+[ring 0.16.20] CARGO_CFG_TARGET_FEATURE = Some("aes,crc,dit,dotprod,dpb,dpb2,fcma,fhm,flagm,fp16,frintts,jsconv,lor,lse,neon,paca,pacg,pan,pmuv3,ras,rcpc,rcpc2,rdm,sb,sha2,sha3,ssbs,v8.1a,v8.2a,v8.3a,v8.4a,vh")
+[ring 0.16.20] running "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-gdwarf-2" "-fno-omit-frame-pointer" "-arch" "arm64" "-I" "include" "-I" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out" "-Wall" "-Wextra" "-std=c1x" "-Wbad-function-cast" "-Wnested-externs" "-Wstrict-prototypes" "-pedantic" "-pedantic-errors" "-Wall" "-Wextra" "-Wcast-align" "-Wcast-qual" "-Wconversion" "-Wenum-compare" "-Wfloat-equal" "-Wformat=2" "-Winline" "-Winvalid-pch" "-Wmissing-field-initializers" "-Wmissing-include-dirs" "-Wredundant-decls" "-Wshadow" "-Wsign-compare" "-Wsign-conversion" "-Wundef" "-Wuninitialized" "-Wwrite-strings" "-fno-strict-aliasing" "-fvisibility=hidden" "-fstack-protector" "-gfull" "-Werror" "-c" "-o/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/gfp_p256.o" "crypto/fipsmodule/ec/gfp_p256.c"
+[ring 0.16.20] running "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-gdwarf-2" "-fno-omit-frame-pointer" "-arch" "arm64" "-I" "include" "-I" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out" "-Wall" "-Wextra" "-std=c1x" "-Wbad-function-cast" "-Wnested-externs" "-Wstrict-prototypes" "-pedantic" "-pedantic-errors" "-Wall" "-Wextra" "-Wcast-align" "-Wcast-qual" "-Wconversion" "-Wenum-compare" "-Wfloat-equal" "-Wformat=2" "-Winline" "-Winvalid-pch" "-Wmissing-field-initializers" "-Wmissing-include-dirs" "-Wredundant-decls" "-Wshadow" "-Wsign-compare" "-Wsign-conversion" "-Wundef" "-Wuninitialized" "-Wwrite-strings" "-fno-strict-aliasing" "-fvisibility=hidden" "-fstack-protector" "-gfull" "-Werror" "-c" "-o/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/gfp_p384.o" "crypto/fipsmodule/ec/gfp_p384.c"
+[ring 0.16.20] OPT_LEVEL = Some("0")
+[ring 0.16.20] TARGET = Some("aarch64-apple-darwin")
+[ring 0.16.20] HOST = Some("aarch64-apple-darwin")
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64-apple-darwin
+[ring 0.16.20] CC_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64_apple_darwin
+[ring 0.16.20] CC_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CC
+[ring 0.16.20] HOST_CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC
+[ring 0.16.20] CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64-apple-darwin
+[ring 0.16.20] CFLAGS_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64_apple_darwin
+[ring 0.16.20] CFLAGS_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CFLAGS
+[ring 0.16.20] HOST_CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS
+[ring 0.16.20] CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+[ring 0.16.20] CRATE_CC_NO_DEFAULTS = None
+[ring 0.16.20] DEBUG = Some("true")
+[ring 0.16.20] CARGO_CFG_TARGET_FEATURE = Some("aes,crc,dit,dotprod,dpb,dpb2,fcma,fhm,flagm,fp16,frintts,jsconv,lor,lse,neon,paca,pacg,pan,pmuv3,ras,rcpc,rcpc2,rdm,sb,sha2,sha3,ssbs,v8.1a,v8.2a,v8.3a,v8.4a,vh")
+[ring 0.16.20] OPT_LEVEL = Some("0")
+[ring 0.16.20] TARGET = Some("aarch64-apple-darwin")
+[ring 0.16.20] HOST = Some("aarch64-apple-darwin")
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64-apple-darwin
+[ring 0.16.20] CC_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64_apple_darwin
+[ring 0.16.20] CC_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CC
+[ring 0.16.20] HOST_CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC
+[ring 0.16.20] CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64-apple-darwin
+[ring 0.16.20] CFLAGS_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64_apple_darwin
+[ring 0.16.20] CFLAGS_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CFLAGS
+[ring 0.16.20] HOST_CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS
+[ring 0.16.20] CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+[ring 0.16.20] CRATE_CC_NO_DEFAULTS = None
+[ring 0.16.20] DEBUG = Some("true")
+[ring 0.16.20] CARGO_CFG_TARGET_FEATURE = Some("aes,crc,dit,dotprod,dpb,dpb2,fcma,fhm,flagm,fp16,frintts,jsconv,lor,lse,neon,paca,pacg,pan,pmuv3,ras,rcpc,rcpc2,rdm,sb,sha2,sha3,ssbs,v8.1a,v8.2a,v8.3a,v8.4a,vh")
+[ring 0.16.20] running "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-gdwarf-2" "-fno-omit-frame-pointer" "-arch" "arm64" "-I" "include" "-I" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out" "-Wall" "-Wextra" "-std=c1x" "-Wbad-function-cast" "-Wnested-externs" "-Wstrict-prototypes" "-pedantic" "-pedantic-errors" "-Wall" "-Wextra" "-Wcast-align" "-Wcast-qual" "-Wconversion" "-Wenum-compare" "-Wfloat-equal" "-Wformat=2" "-Winline" "-Winvalid-pch" "-Wmissing-field-initializers" "-Wmissing-include-dirs" "-Wredundant-decls" "-Wshadow" "-Wsign-compare" "-Wsign-conversion" "-Wundef" "-Wuninitialized" "-Wwrite-strings" "-fno-strict-aliasing" "-fvisibility=hidden" "-fstack-protector" "-gfull" "-Werror" "-c" "-o/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/p256.o" "crypto/fipsmodule/ec/p256.c"
+[ring 0.16.20] running: ZERO_AR_DATE="1" "ar" "cq" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/libring_core_dev_.a" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/aesv8-armx-ios64.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/ghashv8-armx-ios64.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/vpaes-armv8-ios64.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/armv8-mont-ios64.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/chacha-armv8-ios64.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/ghash-neon-armv8-ios64.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/sha512-armv8-ios64.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/sha256-armv8-ios64.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/aes_nohw.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/montgomery.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/montgomery_inv.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/limbs.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/mem.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/poly1305.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/crypto.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/curve25519.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/ecp_nistz.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/gfp_p256.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/gfp_p384.o" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/p256.o"
+[ring 0.16.20] exit status: 0
+[ring 0.16.20] running: "ar" "s" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/libring_core_dev_.a"
+[ring 0.16.20] exit status: 0
+[ring 0.16.20] cargo:rustc-link-lib=static=ring_core_dev_
+[ring 0.16.20] OPT_LEVEL = Some("0")
+[ring 0.16.20] TARGET = Some("aarch64-apple-darwin")
+[ring 0.16.20] HOST = Some("aarch64-apple-darwin")
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64-apple-darwin
+[ring 0.16.20] CC_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC_aarch64_apple_darwin
+[ring 0.16.20] CC_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CC
+[ring 0.16.20] HOST_CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CC
+[ring 0.16.20] CC = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64-apple-darwin
+[ring 0.16.20] CFLAGS_aarch64-apple-darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS_aarch64_apple_darwin
+[ring 0.16.20] CFLAGS_aarch64_apple_darwin = None
+[ring 0.16.20] cargo:rerun-if-env-changed=HOST_CFLAGS
+[ring 0.16.20] HOST_CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CFLAGS
+[ring 0.16.20] CFLAGS = None
+[ring 0.16.20] cargo:rerun-if-env-changed=CRATE_CC_NO_DEFAULTS
+[ring 0.16.20] CRATE_CC_NO_DEFAULTS = None
+[ring 0.16.20] DEBUG = Some("true")
+[ring 0.16.20] CARGO_CFG_TARGET_FEATURE = Some("aes,crc,dit,dotprod,dpb,dpb2,fcma,fhm,flagm,fp16,frintts,jsconv,lor,lse,neon,paca,pacg,pan,pmuv3,ras,rcpc,rcpc2,rdm,sb,sha2,sha3,ssbs,v8.1a,v8.2a,v8.3a,v8.4a,vh")
+[ring 0.16.20] running "cc" "-O0" "-ffunction-sections" "-fdata-sections" "-fPIC" "-gdwarf-2" "-fno-omit-frame-pointer" "-arch" "arm64" "-I" "include" "-I" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out" "-Wall" "-Wextra" "-std=c1x" "-Wbad-function-cast" "-Wnested-externs" "-Wstrict-prototypes" "-pedantic" "-pedantic-errors" "-Wall" "-Wextra" "-Wcast-align" "-Wcast-qual" "-Wconversion" "-Wenum-compare" "-Wfloat-equal" "-Wformat=2" "-Winline" "-Winvalid-pch" "-Wmissing-field-initializers" "-Wmissing-include-dirs" "-Wredundant-decls" "-Wshadow" "-Wsign-compare" "-Wsign-conversion" "-Wundef" "-Wuninitialized" "-Wwrite-strings" "-fno-strict-aliasing" "-fvisibility=hidden" "-fstack-protector" "-gfull" "-Werror" "-c" "-o/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/constant_time_test.o" "crypto/constant_time_test.c"
+[ring 0.16.20] running: ZERO_AR_DATE="1" "ar" "cq" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/libring_core_dev_test.a" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/constant_time_test.o"
+[ring 0.16.20] exit status: 0
+[ring 0.16.20] running: "ar" "s" "/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out/libring_core_dev_test.a"
+[ring 0.16.20] exit status: 0
+[ring 0.16.20] cargo:rustc-link-lib=static=ring_core_dev_test
+[ring 0.16.20] cargo:rustc-link-search=native=/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out
+[ring 0.16.20] cargo:rerun-if-changed=crypto/perlasm/x86_64-xlate.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/perlasm/x86gas.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/perlasm/readme
+[ring 0.16.20] cargo:rerun-if-changed=crypto/perlasm/x86nasm.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/perlasm/arm-xlate.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/perlasm/x86asm.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/internal.h
+[ring 0.16.20] cargo:rerun-if-changed=crypto/chacha/asm/chacha-x86.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/chacha/asm/chacha-armv8.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/chacha/asm/chacha-x86_64.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/chacha/asm/chacha-armv4.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/mem.c
+[ring 0.16.20] cargo:rerun-if-changed=crypto/cpu-intel.c
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/modes/asm/ghashv8-armx.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/modes/asm/ghash-x86.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/modes/asm/ghash-neon-armv8.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/modes/asm/aesni-gcm-x86_64.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/modes/asm/ghash-x86_64.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/modes/asm/ghash-armv4.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/ec/ecp_nistz.c
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/ec/asm/p256-x86_64-asm.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/ec/p256-x86_64-table.h
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/ec/ecp_nistz384.inl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/ec/p256-x86_64.c
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/ec/gfp_p256.c
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/ec/p256_shared.h
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/ec/ecp_nistz.h
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/ec/.gitattributes
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/ec/util.h
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/ec/gfp_p384.c
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/ec/ecp_nistz384.h
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/ec/p256.c
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/ec/p256-x86_64.h
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/ec/p256_table.h
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/bn/internal.h
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/bn/asm/armv8-mont.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/bn/asm/x86-mont.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/bn/asm/x86_64-mont.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/bn/asm/x86_64-mont5.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/bn/asm/armv4-mont.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/bn/montgomery.c
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/bn/montgomery_inv.c
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/sha/asm/sha512-armv8.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/sha/asm/sha512-x86_64.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/sha/asm/sha256-armv4.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/sha/asm/sha512-armv4.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/aes/asm/vpaes-x86_64.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/aes/asm/vpaes-armv8.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/aes/asm/vpaes-x86.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/aes/asm/bsaes-armv7.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/aes/asm/aesv8-armx.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/aes/asm/vpaes-armv7.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/aes/asm/aesni-x86_64.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/aes/asm/aesni-x86.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/fipsmodule/aes/aes_nohw.c
+[ring 0.16.20] cargo:rerun-if-changed=crypto/constant_time_test.c
+[ring 0.16.20] cargo:rerun-if-changed=crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/poly1305/internal.h
+[ring 0.16.20] cargo:rerun-if-changed=crypto/poly1305/poly1305_vec.c
+[ring 0.16.20] cargo:rerun-if-changed=crypto/poly1305/poly1305_arm.c
+[ring 0.16.20] cargo:rerun-if-changed=crypto/poly1305/poly1305_arm_asm.S
+[ring 0.16.20] cargo:rerun-if-changed=crypto/poly1305/poly1305.c
+[ring 0.16.20] cargo:rerun-if-changed=crypto/limbs/limbs.inl
+[ring 0.16.20] cargo:rerun-if-changed=crypto/limbs/limbs.c
+[ring 0.16.20] cargo:rerun-if-changed=crypto/limbs/limbs.h
+[ring 0.16.20] cargo:rerun-if-changed=crypto/curve25519/internal.h
+[ring 0.16.20] cargo:rerun-if-changed=crypto/curve25519/asm/x25519-asm-arm.S
+[ring 0.16.20] cargo:rerun-if-changed=crypto/curve25519/curve25519.c
+[ring 0.16.20] cargo:rerun-if-changed=crypto/curve25519/curve25519_tables.h
+[ring 0.16.20] cargo:rerun-if-changed=crypto/curve25519/.gitattributes
+[ring 0.16.20] cargo:rerun-if-changed=crypto/crypto.c
+[ring 0.16.20] cargo:rerun-if-changed=include/ring-core/arm_arch.h
+[ring 0.16.20] cargo:rerun-if-changed=include/ring-core/poly1305.h
+[ring 0.16.20] cargo:rerun-if-changed=include/ring-core/type_check.h
+[ring 0.16.20] cargo:rerun-if-changed=include/ring-core/aes.h
+[ring 0.16.20] cargo:rerun-if-changed=include/ring-core/check.h
+[ring 0.16.20] cargo:rerun-if-changed=include/ring-core/cpu.h
+[ring 0.16.20] cargo:rerun-if-changed=include/ring-core/mem.h
+[ring 0.16.20] cargo:rerun-if-changed=include/ring-core/prefix_symbols.h
+[ring 0.16.20] cargo:rerun-if-changed=include/ring-core/base.h
+[ring 0.16.20] cargo:rerun-if-changed=third_party/fiat/LICENSE
+[ring 0.16.20] cargo:rerun-if-changed=third_party/fiat/curve25519_64.h
+[ring 0.16.20] cargo:rerun-if-changed=third_party/fiat/p256_64.h
+[ring 0.16.20] cargo:rerun-if-changed=third_party/fiat/.gitattributes
+[ring 0.16.20] cargo:rerun-if-changed=third_party/fiat/p256_32.h
+[ring 0.16.20] cargo:rerun-if-changed=third_party/fiat/METADATA
+[ring 0.16.20] cargo:rerun-if-changed=third_party/fiat/curve25519_32.h
+     Running `CARGO=/Users/xorcist/.rustup/toolchains/nightly-aarch64-apple-darwin/bin/cargo CARGO_CRATE_NAME=ring CARGO_MANIFEST_DIR=/Volumes/Work/Projects/Wasmer/ring-wasi CARGO_PKG_AUTHORS='Brian Smith <brian@briansmith.org>:Frank Denis <github@pureftpd.org>' CARGO_PKG_DESCRIPTION='Ring for wasm32-wasi' CARGO_PKG_HOMEPAGE='' CARGO_PKG_LICENSE='' CARGO_PKG_LICENSE_FILE=LICENSE CARGO_PKG_NAME=ring CARGO_PKG_README=doc/link-to-readme.md CARGO_PKG_REPOSITORY='https://github.com/jedisct1/ring-wasi' CARGO_PKG_RUST_VERSION='' CARGO_PKG_VERSION=0.16.20 CARGO_PKG_VERSION_MAJOR=0 CARGO_PKG_VERSION_MINOR=16 CARGO_PKG_VERSION_PATCH=20 CARGO_PKG_VERSION_PRE='' CARGO_PRIMARY_PACKAGE=1 DYLD_FALLBACK_LIBRARY_PATH='/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/deps:/Users/xorcist/.rustup/toolchains/nightly-aarch64-apple-darwin/lib:/Users/xorcist/.rustup/toolchains/nightly-aarch64-apple-darwin/lib:/Users/xorcist/lib:/usr/local/lib:/usr/lib' OUT_DIR=/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out rustc --crate-name ring --edition=2018 src/lib.rs --error-format=json --json=diagnostic-rendered-ansi,artifacts,future-incompat --diagnostic-width=129 --crate-type lib --emit=dep-info,metadata,link -C embed-bitcode=no -C split-debuginfo=unpacked -C debuginfo=2 --cfg 'feature="alloc"' --cfg 'feature="default"' --cfg 'feature="dev_urandom_fallback"' --cfg 'feature="once_cell"' --cfg 'feature="wasm32_c"' -C metadata=9f532d180de1d221 -C extra-filename=-9f532d180de1d221 --out-dir /Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/deps -C incremental=/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/incremental -L dependency=/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/deps --extern untrusted=/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/deps/libuntrusted-f947472abf193449.rmeta -L native=/Volumes/Work/Projects/Wasmer/ring-wasi/target/debug/build/ring-af2381ff4fb53e64/out -l static=ring_core_dev_ -l static=ring_core_dev_test`
+warning: field `cpu_features` is never read
+  --> src/digest.rs:49:5
+   |
+39 | pub(crate) struct BlockContext {
+   |                   ------------ field in this struct
+...
+49 |     cpu_features: cpu::Features,
+   |     ^^^^^^^^^^^^
+   |
+   = note: `BlockContext` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` on by default
+
+warning: `ring` (lib) generated 1 warning
+    Finished dev [unoptimized + debuginfo] target(s) in 2.80s

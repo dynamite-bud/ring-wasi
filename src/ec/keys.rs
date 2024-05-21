@@ -23,6 +23,7 @@ impl KeyPair {
 pub struct Seed {
     bytes: [u8; SEED_MAX_BYTES],
     curve: &'static Curve,
+    #[cfg_attr(target_family = "wasm", allow(dead_code))]
     pub(crate) cpu_features: cpu::Features,
 }
 

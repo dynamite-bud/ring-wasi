@@ -54,10 +54,11 @@
  * copied and put under another distribution licence
  * [including the GNU Public Licence.] */
 
-#include <ring-core/cpu.h>
+#include <ring-core/base.h>
 
 
-#if !defined(OPENSSL_NO_ASM) && (defined(OPENSSL_X86) || defined(OPENSSL_X86_64))
+#if !defined(OPENSSL_NO_ASM) && \
+    (defined(OPENSSL_X86) || defined(OPENSSL_X86_64))
 
 #if defined(_MSC_VER) && !defined(__clang__)
 #pragma warning(push, 3)
@@ -84,34 +85,33 @@ static void OPENSSL_cpuid(uint32_t *out_eax, uint32_t *out_ebx,
 #elif defined(__pic__) && defined(OPENSSL_32_BIT)
   // Inline assembly may not clobber the PIC register. For 32-bit, this is EBX.
   // See https://gcc.gnu.org/bugzilla/show_bug.cgi?id=47602.
-  __asm__ volatile (
-    "xor %%ecx, %%ecx\n"
-    "mov %%ebx, %%edi\n"
-    "cpuid\n"
-    "xchg %%edi, %%ebx\n"
-    : "=a"(*out_eax), "=D"(*out_ebx), "=c"(*out_ecx), "=d"(*out_edx)
-    : "a"(leaf)
-  );
+  __asm__ volatile(
+      "xor %%ecx, %%ecx\n"
+      "mov %%ebx, %%edi\n"
+      "cpuid\n"
+      "xchg %%edi, %%ebx\n"
+      : "=a"(*out_eax), "=D"(*out_ebx), "=c"(*out_ecx), "=d"(*out_edx)
+      : "a"(leaf));
 #else
-  __asm__ volatile (
-    "xor %%ecx, %%ecx\n"
-    "cpuid\n"
-    : "=a"(*out_eax), "=b"(*out_ebx), "=c"(*out_ecx), "=d"(*out_edx)
-    : "a"(leaf)
-  );
+  __asm__ volatile(
+      "xor %%ecx, %%ecx\n"
+      "cpuid\n"
+      : "=a"(*out_eax), "=b"(*out_ebx), "=c"(*out_ecx), "=d"(*out_edx)
+      : "a"(leaf));
 #endif
 }
 
 // OPENSSL_xgetbv returns the value of an Intel Extended Control Register (XCR).
 // Currently only XCR0 is defined by Intel so |xcr| should always be zero.
 //
-// See https://software.intel.com/en-us/articles/how-to-detect-new-instruction-support-in-the-4th-generation-intel-core-processor-family
+// See
+// https://software.intel.com/en-us/articles/how-to-detect-new-instruction-support-in-the-4th-generation-intel-core-processor-family
 static uint64_t OPENSSL_xgetbv(uint32_t xcr) {
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) && !defined(__clang__)
   return (uint64_t)_xgetbv(xcr);
 #else
   uint32_t eax, edx;
-  __asm__ volatile ("xgetbv" : "=a"(eax), "=d"(edx) : "c"(xcr));
+  __asm__ volatile("xgetbv" : "=a"(eax), "=d"(edx) : "c"(xcr));
   return (((uint64_t)edx) << 32) | eax;
 #endif
 }
@@ -123,8 +123,7 @@ void OPENSSL_cpuid_setup(void) {
 
   uint32_t num_ids = eax;
 
-  int is_intel = ebx == 0x756e6547 /* Genu */ &&
-                 edx == 0x49656e69 /* ineI */ &&
+  int is_intel = ebx == 0x756e6547 /* Genu */ && edx == 0x49656e69 /* ineI */ &&
                  ecx == 0x6c65746e /* ntel */;
 
   uint32_t extended_features[2] = {0};

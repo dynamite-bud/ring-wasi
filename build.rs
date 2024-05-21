@@ -19,9 +19,6 @@
 // another for the concrete logging implementation). Instead we use `eprintln!`
 // to log everything to stderr.
 
-// In the `pregenerate_asm_main()` case we don't want to access (Cargo)
-// environment variables at all, so avoid `use std::env` here.
-
 use std::{
     fs::{self, DirEntry},
     io::Write,
@@ -33,22 +30,27 @@ const X86: &str = "x86";
 const X86_64: &str = "x86_64";
 const AARCH64: &str = "aarch64";
 const ARM: &str = "arm";
+const WASM32: &str = "wasm32";
+const WASM64: &str = "wasm64";
+const WASI: &str = "wasi";
+const WASM32_WASI: &str = "wasm32-wasi";
+const WASMER_WASI: &str = "wasm32-wasmer-wasi";
 
 #[rustfmt::skip]
 const RING_SRCS: &[(&[&str], &str)] = &[
+    (&[], "crypto/curve25519/curve25519.c"),
     (&[], "crypto/fipsmodule/aes/aes_nohw.c"),
     (&[], "crypto/fipsmodule/bn/montgomery.c"),
     (&[], "crypto/fipsmodule/bn/montgomery_inv.c"),
+    (&[], "crypto/fipsmodule/ec/ecp_nistz.c"),
+    (&[], "crypto/fipsmodule/ec/gfp_p256.c"),
+    (&[], "crypto/fipsmodule/ec/gfp_p384.c"),
+    (&[], "crypto/fipsmodule/ec/p256.c"),
     (&[], "crypto/limbs/limbs.c"),
     (&[], "crypto/mem.c"),
     (&[], "crypto/poly1305/poly1305.c"),
 
-    (&[AARCH64, ARM, X86_64, X86], "crypto/crypto.c"),
-    (&[AARCH64, ARM, X86_64, X86], "crypto/curve25519/curve25519.c"),
-    (&[AARCH64, ARM, X86_64, X86], "crypto/fipsmodule/ec/ecp_nistz.c"),
-    (&[AARCH64, ARM, X86_64, X86], "crypto/fipsmodule/ec/gfp_p256.c"),
-    (&[AARCH64, ARM, X86_64, X86], "crypto/fipsmodule/ec/gfp_p384.c"),
-    (&[AARCH64, ARM, X86_64, X86], "crypto/fipsmodule/ec/p256.c"),
+    (&[AARCH64, ARM, X86_64, X86, WASM32,WASM64, WASI, WASM32_WASI,WASMER_WASI], "crypto/crypto.c"),
 
     (&[X86_64, X86], "crypto/cpu-intel.c"),
 
@@ -63,13 +65,14 @@ const RING_SRCS: &[(&[&str], &str)] = &[
     (&[X86_64], "crypto/fipsmodule/aes/asm/vpaes-x86_64.pl"),
     (&[X86_64], "crypto/fipsmodule/bn/asm/x86_64-mont.pl"),
     (&[X86_64], "crypto/fipsmodule/bn/asm/x86_64-mont5.pl"),
-    (&[X86_64], "crypto/fipsmodule/ec/p256-x86_64.c"),
     (&[X86_64], "crypto/fipsmodule/ec/asm/p256-x86_64-asm.pl"),
     (&[X86_64], "crypto/fipsmodule/modes/asm/aesni-gcm-x86_64.pl"),
     (&[X86_64], "crypto/fipsmodule/modes/asm/ghash-x86_64.pl"),
     (&[X86_64], "crypto/poly1305/poly1305_vec.c"),
     (&[X86_64], SHA512_X86_64),
     (&[X86_64], "crypto/cipher_extra/asm/chacha20_poly1305_x86_64.pl"),
+
+    (&[AARCH64, X86_64], "crypto/fipsmodule/ec/p256-nistz.c"),
 
     (&[AARCH64, ARM], "crypto/fipsmodule/aes/asm/aesv8-armx.pl"),
     (&[AARCH64, ARM], "crypto/fipsmodule/modes/asm/ghashv8-armx.pl"),
@@ -85,9 +88,11 @@ const RING_SRCS: &[(&[&str], &str)] = &[
     (&[ARM], "crypto/fipsmodule/sha/asm/sha256-armv4.pl"),
     (&[ARM], "crypto/fipsmodule/sha/asm/sha512-armv4.pl"),
 
+    (&[AARCH64], "crypto/chacha/asm/chacha-armv8.pl"),
+    (&[AARCH64], "crypto/cipher_extra/asm/chacha20_poly1305_armv8.pl"),
     (&[AARCH64], "crypto/fipsmodule/aes/asm/vpaes-armv8.pl"),
     (&[AARCH64], "crypto/fipsmodule/bn/asm/armv8-mont.pl"),
-    (&[AARCH64], "crypto/chacha/asm/chacha-armv8.pl"),
+    (&[AARCH64], "crypto/fipsmodule/ec/asm/p256-armv8-asm.pl"),
     (&[AARCH64], "crypto/fipsmodule/modes/asm/ghash-neon-armv8.pl"),
     (&[AARCH64], SHA512_ARMV8),
 ];
@@ -102,8 +107,8 @@ const RING_TEST_SRCS: &[&str] = &[("crypto/constant_time_test.c")];
 
 const PREGENERATED: &str = "pregenerated";
 
-fn c_flags(target: &Target) -> &'static [&'static str] {
-    if target.env != MSVC {
+fn c_flags(compiler: &cc::Tool) -> &'static [&'static str] {
+    if !compiler.is_like_msvc() {
         static NON_MSVC_FLAGS: &[&str] = &[
             "-std=c1x", // GCC 4.6 requires "c1x" instead of "c11"
             "-Wbad-function-cast",
@@ -116,8 +121,8 @@ fn c_flags(target: &Target) -> &'static [&'static str] {
     }
 }
 
-fn cpp_flags(target: &Target) -> &'static [&'static str] {
-    if target.env != MSVC {
+fn cpp_flags(compiler: &cc::Tool) -> &'static [&'static str] {
+    if !compiler.is_like_msvc() {
         static NON_MSVC_FLAGS: &[&str] = &[
             "-pedantic",
             "-pedantic-errors",
@@ -231,6 +236,13 @@ const ASM_TARGETS: &[AsmTarget] = &[
         asm_extension: "asm",
         preassemble: true,
     },
+    AsmTarget {
+        oss: &[WINDOWS],
+        arch: "aarch64",
+        perlasm_format: "win64",
+        asm_extension: "S",
+        preassemble: true,
+    },
 ];
 
 struct AsmTarget {
@@ -265,6 +277,7 @@ const LINUX_ABI: &[&str] = &[
     "netbsd",
     "openbsd",
     "linux",
+    "redox",
     "solaris",
 ];
 
@@ -274,19 +287,29 @@ const MACOS_ABI: &[&str] = &["ios", "macos"];
 
 const WINDOWS: &str = "windows";
 
-const MSVC: &str = "msvc";
-const MSVC_OBJ_OPT: &str = "/Fo";
-const MSVC_OBJ_EXT: &str = "obj";
+/// Read an environment variable and tell Cargo that we depend on it.
+///
+/// This needs to be used for any environment variable that isn't a standard
+/// Cargo-supplied variable.
+///
+/// The name is static since we intend to only read a static set of environment
+/// variables.
+fn read_env_var(name: &'static str) -> Result<String, std::env::VarError> {
+    println!("cargo:rerun-if-env-changed={}", name);
+    std::env::var(name)
+}
 
 fn main() {
-    if let Ok(package_name) = std::env::var("CARGO_PKG_NAME") {
-        if package_name.starts_with("ring") {
-            ring_build_rs_main();
-            return;
+    const RING_PREGENERATE_ASM: &str = "RING_PREGENERATE_ASM";
+    match read_env_var(RING_PREGENERATE_ASM).as_deref() {
+        Ok("1") => {
+            pregenerate_asm_main();
+        }
+        Err(std::env::VarError::NotPresent) => ring_build_rs_main(),
+        _ => {
+            panic!("${} has an invalid value", RING_PREGENERATE_ASM);
         }
     }
-
-    pregenerate_asm_main();
 }
 
 fn ring_build_rs_main() {
@@ -297,52 +320,73 @@ fn ring_build_rs_main() {
 
     let arch = env::var("CARGO_CFG_TARGET_ARCH").unwrap();
     let os = env::var("CARGO_CFG_TARGET_OS").unwrap();
-    let env = env::var("CARGO_CFG_TARGET_ENV").unwrap();
-    let (obj_ext, obj_opt) = if env == MSVC {
-        (MSVC_OBJ_EXT, MSVC_OBJ_OPT)
-    } else {
-        ("o", "-o")
+    let is_musl = {
+        let env = env::var("CARGO_CFG_TARGET_ENV").unwrap();
+        env.starts_with("musl")
     };
 
-    let is_git = std::fs::metadata(".git").is_ok();
-
-    // Published builds are always release builds.
-    let is_debug = is_git && env::var("DEBUG").unwrap() != "false";
-
-    if ["wasi", "wasix"].contains(&os.as_str()) {
+    if [WASI].contains(&os.as_str()) {
         let wasm_libs = PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap()).join("wasm-libs");
         if wasm_libs.exists() {
             let src_dir = env::var("CARGO_MANIFEST_DIR").unwrap();
             println!("cargo:rustc-link-lib=static=ring_core_dev_");
             println!("cargo:rustc-link-search=native={}/wasm-libs", src_dir);
+
+            println!("cargo:rustc-link-lib=static=clang_rt.builtins-wasm32");
+            println!("cargo:rustc-link-search=native={}/wasm-libs", src_dir);
             return;
-        } else {
-            env::set_var("CC", "zig cc -Ofast -s -target wasm32-wasi");
         }
     }
+
+    let is_git = std::fs::metadata(".git").is_ok();
+
+    // Published builds are always built in release mode.
+    let is_debug = is_git && env::var("DEBUG").unwrap() != "false";
+
+    // If `.git` exists then assume this is the "local hacking" case where
+    // we want to make it easy to build *ring* using `cargo build`/`cargo test`
+    // without a prerequisite `package` step, at the cost of needing additional
+    // tools like `Perl` and/or `nasm`.
+    //
+    // If `.git` doesn't exist then assume that this is a packaged build where
+    // we want to optimize for minimizing the build tools required: No Perl,
+    // no nasm, etc.
+    let use_pregenerated = !is_git;
+
+    // During local development, force warnings in non-Rust code to be treated
+    // as errors. Since warnings are highly compiler-dependent and compilers
+    // don't maintain backward compatibility w.r.t. which warnings they issue,
+    // don't do this for packaged builds.
+    let force_warnings_into_errors = is_git;
 
     let target = Target {
         arch,
         os,
-        env,
-        obj_ext,
-        obj_opt,
-        is_git,
+        is_musl,
         is_debug,
+        force_warnings_into_errors,
     };
     let pregenerated = PathBuf::from(env::var("CARGO_MANIFEST_DIR").unwrap()).join(PREGENERATED);
 
-    build_c_code(&target, pregenerated, &out_dir);
+    build_c_code(
+        &target,
+        pregenerated,
+        &out_dir,
+        &ring_core_prefix(),
+        use_pregenerated,
+    );
     emit_rerun_if_changed()
 }
 
 fn pregenerate_asm_main() {
+    println!("cargo:rustc-cfg=pregenerate_asm_only");
+
     let pregenerated = PathBuf::from(PREGENERATED);
     std::fs::create_dir(&pregenerated).unwrap();
     let pregenerated_tmp = pregenerated.join("tmp");
     std::fs::create_dir(&pregenerated_tmp).unwrap();
 
-    let mut generated_prefix_headers = false;
+    generate_prefix_symbols_asm_headers(&pregenerated_tmp, &ring_core_prefix()).unwrap();
 
     for asm_target in ASM_TARGETS {
         // For Windows, package pregenerated object files instead of
@@ -354,17 +398,26 @@ fn pregenerate_asm_main() {
             &pregenerated
         };
 
-        let perlasm_src_dsts = perlasm_src_dsts(&asm_dir, asm_target);
+        let perlasm_src_dsts = perlasm_src_dsts(asm_dir, asm_target);
         perlasm(&perlasm_src_dsts, asm_target);
 
         if asm_target.preassemble {
-            if !std::mem::replace(&mut generated_prefix_headers, true) {
-                generate_prefix_symbols_nasm(&pregenerated).unwrap();
-            }
+            // Preassembly is currently only done for Windows targets.
+            assert_eq!(&asm_target.oss, &[WINDOWS]);
+            let os = WINDOWS;
+
             let srcs = asm_srcs(perlasm_src_dsts);
+
+            let target = Target {
+                arch: asm_target.arch.to_owned(),
+                os: os.to_owned(),
+                is_musl: false,
+                is_debug: false,
+                force_warnings_into_errors: true,
+            };
+
             for src in srcs {
-                let obj_path = obj_path(&pregenerated, &src, MSVC_OBJ_EXT);
-                run_command(nasm(&src, asm_target.arch, &obj_path, &pregenerated));
+                compile(&src, &target, &pregenerated_tmp, &pregenerated);
             }
         }
     }
@@ -373,27 +426,37 @@ fn pregenerate_asm_main() {
 struct Target {
     arch: String,
     os: String,
-    env: String,
-    obj_ext: &'static str,
-    obj_opt: &'static str,
-    is_git: bool,
+
+    /// Is the target one that uses the musl C standard library instead of the default?
+    is_musl: bool,
+
+    /// Is this a debug build? This affects whether assertions might be enabled
+    /// in the C code. For packaged builds, this should always be `false`.
     is_debug: bool,
+
+    /// true: Force warnings to be treated as errors.
+    /// false: Use the default behavior (perhaps determined by `$CFLAGS`, etc.)
+    force_warnings_into_errors: bool,
 }
 
-fn build_c_code(target: &Target, pregenerated: PathBuf, out_dir: &Path) {
+fn build_c_code(
+    target: &Target,
+    pregenerated: PathBuf,
+    out_dir: &Path,
+    ring_core_prefix: &str,
+    use_pregenerated: bool,
+) {
     #[cfg(not(feature = "wasm32_c"))]
     {
-        if &target.arch == "wasm32" {
+        if target.arch == WASM32 {
             return;
         }
     }
+    println!("cargo:rustc-env=RING_CORE_PREFIX={}", ring_core_prefix);
 
     let asm_target = ASM_TARGETS.iter().find(|asm_target| {
         asm_target.arch == target.arch && asm_target.oss.contains(&target.os.as_ref())
     });
-
-    let use_pregenerated = !target.is_git;
-    let warnings_are_errors = target.is_git;
 
     let asm_dir = if use_pregenerated {
         &pregenerated
@@ -401,7 +464,10 @@ fn build_c_code(target: &Target, pregenerated: PathBuf, out_dir: &Path) {
         out_dir
     };
 
-    generate_prefix_symbols(target, out_dir).unwrap();
+    generate_prefix_symbols_header(out_dir, "prefix_symbols.h", '#', None, ring_core_prefix)
+        .unwrap();
+
+    generate_prefix_symbols_asm_headers(out_dir, ring_core_prefix).unwrap();
 
     let asm_srcs = if let Some(asm_target) = asm_target {
         let perlasm_src_dsts = perlasm_src_dsts(asm_dir, asm_target);
@@ -413,14 +479,11 @@ fn build_c_code(target: &Target, pregenerated: PathBuf, out_dir: &Path) {
         let mut asm_srcs = asm_srcs(perlasm_src_dsts);
 
         // For Windows we also pregenerate the object files for non-Git builds so
-        // the user doesn't need to install the assembler. On other platforms we
-        // assume the C compiler also assembles.
+        // the user doesn't need to install the assembler.
         if use_pregenerated && target.os == WINDOWS {
-            // The pregenerated object files always use ".obj" as the extension,
-            // even when the C/C++ compiler outputs files with the ".o" extension.
             asm_srcs = asm_srcs
                 .iter()
-                .map(|src| obj_path(&pregenerated, src.as_path(), "obj"))
+                .map(|src| obj_path(&pregenerated, src.as_path()))
                 .collect::<Vec<_>>();
         }
 
@@ -431,7 +494,7 @@ fn build_c_code(target: &Target, pregenerated: PathBuf, out_dir: &Path) {
 
     let core_srcs = sources_for_arch(&target.arch)
         .into_iter()
-        .filter(|p| !is_perlasm(&p))
+        .filter(|p| !is_perlasm(p))
         .collect::<Vec<_>>();
 
     let test_srcs = RING_TEST_SRCS.iter().map(PathBuf::from).collect::<Vec<_>>();
@@ -445,15 +508,8 @@ fn build_c_code(target: &Target, pregenerated: PathBuf, out_dir: &Path) {
     // can't do that yet.
     libs.iter()
         .for_each(|&(lib_name_suffix, srcs, additional_srcs)| {
-            let lib_name = String::from(BORINGSSL_PREFIX_VALUE) + lib_name_suffix;
-            build_library(
-                &target,
-                &out_dir,
-                &lib_name,
-                srcs,
-                additional_srcs,
-                warnings_are_errors,
-            )
+            let lib_name = String::from(ring_core_prefix) + lib_name_suffix;
+            build_library(target, out_dir, &lib_name, srcs, additional_srcs)
         });
 
     println!(
@@ -462,29 +518,40 @@ fn build_c_code(target: &Target, pregenerated: PathBuf, out_dir: &Path) {
     );
 }
 
+fn cc_builder() -> cc::Build {
+    let mut c = cc::Build::new();
+    let target_os = std::env::var("CARGO_CFG_TARGET_OS").unwrap();
+    if target_os == "wasi" {
+        let wasi_sdk_path =
+            &std::env::var("WASI_SDK_DIR").expect("missing environment variable: WASI_SDK_DIR");
+        c.compiler(format!("{}/bin/clang", wasi_sdk_path).as_str());
+        c.archiver(format!("{}/bin/llvm-ar", wasi_sdk_path).as_str());
+        c.flag(format!("--sysroot={}/share/wasi-sysroot", wasi_sdk_path).as_str());
+    }
+    c
+}
+
 fn build_library(
     target: &Target,
     out_dir: &Path,
     lib_name: &str,
     srcs: &[PathBuf],
     additional_srcs: &[PathBuf],
-    warnings_are_errors: bool,
 ) {
     // Compile all the (dirty) source files into object files.
     let objs = additional_srcs
         .iter()
         .chain(srcs.iter())
-        .filter(|f| &target.env != "msvc" || f.extension().unwrap().to_str().unwrap() != "S")
-        .map(|f| compile(f, target, warnings_are_errors, out_dir))
+        .map(|f| compile(f, target, out_dir, out_dir))
         .collect::<Vec<_>>();
 
     // Rebuild the library if necessary.
     let lib_path = PathBuf::from(out_dir).join(format!("lib{}.a", lib_name));
 
-    let mut c = cc::Build::new();
+    let mut c = cc_builder();
 
     for f in LD_FLAGS {
-        let _ = c.flag(&f);
+        let _ = c.flag(f);
     }
     match target.os.as_str() {
         "macos" => {
@@ -514,56 +581,55 @@ fn build_library(
     println!("cargo:rustc-link-lib=static={}", lib_name);
 }
 
-fn compile(p: &Path, target: &Target, warnings_are_errors: bool, out_dir: &Path) -> String {
+fn compile(p: &Path, target: &Target, include_dir: &Path, out_dir: &Path) -> String {
     let ext = p.extension().unwrap().to_str().unwrap();
-    if ext == "obj" {
+    if ext == "o" {
         p.to_str().expect("Invalid path").into()
     } else {
-        let mut out_path = out_dir.join(p.file_name().unwrap());
-        assert!(out_path.set_extension(target.obj_ext));
+        let out_file = obj_path(out_dir, p);
         let cmd = if target.os != WINDOWS || ext != "asm" {
-            cc(p, ext, target, warnings_are_errors, &out_path, out_dir)
+            cc(p, ext, target, include_dir, &out_file)
         } else {
-            nasm(p, &target.arch, &out_path, out_dir)
+            nasm(p, &target.arch, include_dir, &out_file)
         };
 
         run_command(cmd);
-        out_path.to_str().expect("Invalid path").into()
+        out_file.to_str().expect("Invalid path").into()
     }
 }
 
-fn obj_path(out_dir: &Path, src: &Path, obj_ext: &str) -> PathBuf {
+fn obj_path(out_dir: &Path, src: &Path) -> PathBuf {
     let mut out_path = out_dir.join(src.file_name().unwrap());
-    assert!(out_path.set_extension(obj_ext));
+    // To eliminate unnecessary conditional logic, use ".o" as the extension,
+    // even when the compiler (e.g. MSVC) would normally use something else
+    // (e.g. ".obj"). cc-rs seems to do the same.
+    assert!(out_path.set_extension("o"));
     out_path
 }
 
-const BORINGSSL_PREFIX_VALUE: &str = "ring_core_dev_";
+fn cc(file: &Path, ext: &str, target: &Target, include_dir: &Path, out_file: &Path) -> Command {
+    let mut c = cc_builder();
 
-fn cc(
-    file: &Path,
-    ext: &str,
-    target: &Target,
-    warnings_are_errors: bool,
-    out_path: &Path,
-    include_dir: &Path,
-) -> Command {
-    let is_musl = target.env.starts_with("musl");
+    // FIXME: On Windows AArch64 we currently must use Clang to compile C code
+    if target.os == WINDOWS && target.arch == AARCH64 && !c.get_compiler().is_like_clang() {
+        let _ = c.compiler("clang");
+    }
 
-    let mut c = cc::Build::new();
+    let compiler = c.get_compiler();
+
     let _ = c.include("include");
     let _ = c.include(include_dir);
     match ext {
         "c" => {
-            for f in c_flags(target) {
+            for f in c_flags(&compiler) {
                 let _ = c.flag(f);
             }
         }
         "S" => (),
         e => panic!("Unsupported file extension: {:?}", e),
     };
-    for f in cpp_flags(target) {
-        let _ = c.flag(&f);
+    for f in cpp_flags(&compiler) {
+        let _ = c.flag(f);
     }
     if target.os != "none"
         && target.os != "redox"
@@ -573,21 +639,18 @@ fn cc(
         let _ = c.flag("-fstack-protector");
     }
 
-    match (target.os.as_str(), target.env.as_str()) {
+    if target.os.as_str() == "macos" {
         // ``-gfull`` is required for Darwin's |-dead_strip|.
-        ("macos", _) => {
-            let _ = c.flag("-gfull");
-        }
-        (_, "msvc") => (),
-        _ => {
-            let _ = c.flag("-g3");
-        }
+        let _ = c.flag("-gfull");
+    } else if !compiler.is_like_msvc() {
+        let _ = c.flag("-g3");
     };
+
     if !target.is_debug {
         let _ = c.define("NDEBUG", None);
     }
 
-    if &target.env == "msvc" {
+    if compiler.is_like_msvc() {
         if std::env::var("OPT_LEVEL").unwrap() == "0" {
             let _ = c.flag("/Od"); // Disable optimization for debug builds.
                                    // run-time checking: (s)tack frame, (u)ninitialized variables
@@ -601,7 +664,7 @@ fn cc(
     //
     // poly1305_vec.c requires <emmintrin.h> which requires <stdlib.h>.
     if (target.arch == "wasm32" && target.os == "unknown")
-        || (target.os == "linux" && is_musl && target.arch != "x86_64")
+        || (target.os == "linux" && target.is_musl && target.arch != "x86_64")
     {
         if let Ok(compiler) = c.try_get_compiler() {
             // TODO: Expand this to non-clang compilers in 0.17.0 if practical.
@@ -612,15 +675,10 @@ fn cc(
         }
     }
 
-    if warnings_are_errors {
-        let flag = if &target.env != "msvc" {
-            "-Werror"
-        } else {
-            "/WX"
-        };
-        let _ = c.flag(flag);
+    if target.force_warnings_into_errors {
+        c.warnings_into_errors(true);
     }
-    if is_musl {
+    if target.is_musl {
         // Some platforms enable _FORTIFY_SOURCE by default, but musl
         // libc doesn't support it yet. See
         // http://wiki.musl-libc.org/wiki/Future_Ideas#Fortify
@@ -629,22 +687,23 @@ fn cc(
         let _ = c.flag("-U_FORTIFY_SOURCE");
     }
 
+    let obj_opt = if compiler.is_like_msvc() { "/Fo" } else { "-o" };
     let mut c = c.get_compiler().to_command();
     let _ = c
         .arg("-c")
         .arg(format!(
             "{}{}",
-            target.obj_opt,
-            out_path.to_str().expect("Invalid path")
+            obj_opt,
+            out_file.to_str().expect("Invalid path")
         ))
         .arg(file);
     c
 }
 
-fn nasm(file: &Path, arch: &str, out_file: &Path, include_dir: &Path) -> Command {
+fn nasm(file: &Path, arch: &str, include_dir: &Path, out_file: &Path) -> Command {
     let oformat = match arch {
-        "x86_64" => ("win64"),
-        "x86" => ("win32"),
+        "x86_64" => "win64",
+        "x86" => "win32",
         _ => panic!("unsupported arch: {}", arch),
     };
 
@@ -750,9 +809,10 @@ fn asm_path(out_dir: &Path, src: &Path, asm_target: &AsmTarget) -> PathBuf {
 
 fn perlasm(src_dst: &[(PathBuf, PathBuf)], asm_target: &AsmTarget) {
     for (src, dst) in src_dst {
-        let mut args = Vec::<String>::new();
-        args.push(src.to_string_lossy().into_owned());
-        args.push(asm_target.perlasm_format.to_owned());
+        let mut args = vec![
+            src.to_string_lossy().into_owned(),
+            asm_target.perlasm_format.to_owned(),
+        ];
         if asm_target.arch == "x86" {
             args.push("-fPIC".into());
             args.push("-DOPENSSL_IA32_SSE2".into());
@@ -762,14 +822,14 @@ fn perlasm(src_dst: &[(PathBuf, PathBuf)], asm_target: &AsmTarget) {
         let dst = dst
             .to_str()
             .expect("Could not convert path")
-            .replace("\\", "/");
+            .replace('\\', "/");
         args.push(dst);
         run_command_with_args(&get_command("PERL_EXECUTABLE", "perl"), &args);
     }
 }
 
-fn get_command(var: &str, default: &str) -> String {
-    std::env::var(var).unwrap_or_else(|_| default.into())
+fn get_command(var: &'static str, default: &str) -> String {
+    read_env_var(var).unwrap_or_else(|_| default.into())
 }
 
 // TODO: We should emit `cargo:rerun-if-changed-env` for the various
@@ -804,32 +864,43 @@ fn walk_dir(dir: &Path, cb: &impl Fn(&DirEntry)) {
     }
 }
 
-/// Creates the necessary header file for symbol renaming and returns the path of the
-/// generated include directory.
-fn generate_prefix_symbols(target: &Target, out_dir: &Path) -> Result<(), std::io::Error> {
-    generate_prefix_symbols_header(out_dir, "prefix_symbols.h", '#', None)?;
+fn ring_core_prefix() -> String {
+    let links = std::env::var("CARGO_MANIFEST_LINKS").unwrap();
 
-    if target.os == "windows" {
-        let _ = generate_prefix_symbols_nasm(out_dir)?;
-    } else {
-        generate_prefix_symbols_header(
-            out_dir,
-            "prefix_symbols_asm.h",
-            '#',
-            Some("#if defined(__APPLE__)"),
-        )?;
-    }
+    let computed = {
+        let name = std::env::var("CARGO_PKG_NAME").unwrap();
+        let version = std::env::var("CARGO_PKG_VERSION").unwrap();
+        name + "_core_" + &version.replace(&['-', '.'][..], "_")
+    };
 
-    Ok(())
+    // assert_eq!(links, computed);
+
+    links + "_"
 }
 
-fn generate_prefix_symbols_nasm(out_dir: &Path) -> Result<(), std::io::Error> {
+/// Creates the necessary header files for symbol renaming that are included by
+/// assembly code.
+///
+/// For simplicity, both non-Nasm- and Nasm- style headers are always
+/// generated, even though local non-packaged builds need only one of them.
+fn generate_prefix_symbols_asm_headers(out_dir: &Path, prefix: &str) -> Result<(), std::io::Error> {
+    generate_prefix_symbols_header(
+        out_dir,
+        "prefix_symbols_asm.h",
+        '#',
+        Some("#if defined(__APPLE__)"),
+        prefix,
+    )?;
+
     generate_prefix_symbols_header(
         out_dir,
         "prefix_symbols_nasm.inc",
         '%',
         Some("%ifidn __OUTPUT_FORMAT__,win32"),
-    )
+        prefix,
+    )?;
+
+    Ok(())
 }
 
 fn generate_prefix_symbols_header(
@@ -837,14 +908,15 @@ fn generate_prefix_symbols_header(
     filename: &str,
     pp: char,
     prefix_condition: Option<&str>,
+    prefix: &str,
 ) -> Result<(), std::io::Error> {
     let dir = out_dir.join("ring_core_generated");
     std::fs::create_dir_all(&dir)?;
 
     let path = dir.join(filename);
-    let mut file = std::fs::File::create(&path)?;
+    let mut file = std::fs::File::create(path)?;
 
-    let filename_ident = filename.replace(".", "_").to_uppercase();
+    let filename_ident = filename.replace('.', "_").to_uppercase();
     writeln!(
         file,
         r#"
@@ -857,10 +929,10 @@ fn generate_prefix_symbols_header(
 
     if let Some(prefix_condition) = prefix_condition {
         writeln!(file, "{}", prefix_condition)?;
-        writeln!(file, "{}", prefix_all_symbols(pp, "_"))?;
+        writeln!(file, "{}", prefix_all_symbols(pp, "_", prefix))?;
         writeln!(file, "{pp}else", pp = pp)?;
     };
-    writeln!(file, "{}", prefix_all_symbols(pp, ""))?;
+    writeln!(file, "{}", prefix_all_symbols(pp, "", prefix))?;
     if prefix_condition.is_some() {
         writeln!(file, "{pp}endif", pp = pp)?
     }
@@ -870,7 +942,19 @@ fn generate_prefix_symbols_header(
     Ok(())
 }
 
-fn prefix_all_symbols(pp: char, prefix_prefix: &str) -> String {
+fn prefix_all_symbols(pp: char, prefix_prefix: &str, prefix: &str) -> String {
+    // Rename some nistz256 assembly functions to match the names of their
+    // polyfills.
+    static SYMBOLS_TO_RENAME: &[(&str, &str)] = &[
+        ("ecp_nistz256_point_double", "p256_point_double"),
+        ("ecp_nistz256_point_add", "p256_point_add"),
+        ("ecp_nistz256_point_add_affine", "p256_point_add_affine"),
+        ("ecp_nistz256_ord_mul_mont", "p256_scalar_mul_mont"),
+        ("ecp_nistz256_ord_sqr_mont", "p256_scalar_sqr_rep_mont"),
+        ("ecp_nistz256_mul_mont", "p256_mul_mont"),
+        ("ecp_nistz256_sqr_mont", "p256_sqr_mont"),
+    ];
+
     static SYMBOLS_TO_PREFIX: &[&str] = &[
         "CRYPTO_poly1305_finish",
         "CRYPTO_poly1305_finish_neon",
@@ -929,9 +1013,9 @@ fn prefix_all_symbols(pp: char, prefix_prefix: &str) -> String {
         "gcm_init_neon",
         "limbs_mul_add_limb",
         "little_endian_bytes_from_scalar",
-        "nistz256_neg",
-        "nistz256_select_w5",
-        "nistz256_select_w7",
+        "ecp_nistz256_neg",
+        "ecp_nistz256_select_w5",
+        "ecp_nistz256_select_w7",
         "nistz384_point_add",
         "nistz384_point_double",
         "nistz384_point_mul",
@@ -949,8 +1033,8 @@ fn prefix_all_symbols(pp: char, prefix_prefix: &str) -> String {
         "p384_elem_neg",
         "p384_elem_sub",
         "p384_scalar_mul_mont",
-        "poly1305_neon2_addmulmod",
-        "poly1305_neon2_blocks",
+        "openssl_poly1305_neon2_addmulmod",
+        "openssl_poly1305_neon2_blocks",
         "sha256_block_data_order",
         "sha512_block_data_order",
         "vpaes_ctr32_encrypt_blocks",
@@ -975,12 +1059,23 @@ fn prefix_all_symbols(pp: char, prefix_prefix: &str) -> String {
 
     let mut out = String::new();
 
+    for (old, new) in SYMBOLS_TO_RENAME {
+        let line = format!(
+            "{pp}define {prefix_prefix}{old} {prefix_prefix}{new}\n",
+            pp = pp,
+            prefix_prefix = prefix_prefix,
+            old = old,
+            new = new
+        );
+        out += &line;
+    }
+
     for symbol in SYMBOLS_TO_PREFIX {
         let line = format!(
             "{pp}define {prefix_prefix}{symbol} {prefix_prefix}{prefix}{symbol}\n",
             pp = pp,
             prefix_prefix = prefix_prefix,
-            prefix = BORINGSSL_PREFIX_VALUE,
+            prefix = prefix,
             symbol = symbol
         );
         out += &line;

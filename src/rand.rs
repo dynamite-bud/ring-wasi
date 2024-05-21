@@ -154,7 +154,7 @@ impl SystemRandom {
     }
 }
 
-#[cfg(any(target_os = "wasi", target_os = "wasix"))]
+#[cfg(target_os = "wasi")]
 impl sealed::SecureRandom for SystemRandom {
     #[inline(always)]
     fn fill_impl(&self, dest: &mut [u8]) -> Result<(), error::Unspecified> {
@@ -162,7 +162,7 @@ impl sealed::SecureRandom for SystemRandom {
     }
 }
 
-#[cfg(not(any(target_os = "wasi", target_os = "wasix")))]
+#[cfg(not(target_os = "wasi"))]
 impl sealed::SecureRandom for SystemRandom {
     #[inline(always)]
     fn fill_impl(&self, dest: &mut [u8]) -> Result<(), error::Unspecified> {
@@ -177,7 +177,7 @@ impl crate::sealed::Sealed for SystemRandom {}
         any(target_os = "android", target_os = "linux"),
         not(feature = "dev_urandom_fallback")
     ),
-    all(target_arch = "wasm32", target_os = "unknown"),
+    any(target_os = "wasi", target_family = "wasm"),
     windows
 ))]
 use self::sysrand::fill as fill_impl;
@@ -253,6 +253,22 @@ mod sysrand_chunk {
     }
 }
 
+#[cfg(target_os = "wasi")]
+mod sysrand_chunk {
+    use crate::error;
+
+    #[inline]
+    pub fn chunk(dest: &mut [u8]) -> Result<usize, error::Unspecified> {
+        unsafe {
+            let base = dest as *mut [u8] as *mut u8;
+            let len = dest.len();
+            wasi::random_get(base, len)
+                .map(|_| len as usize)
+                .map_err(|_| error::Unspecified)
+        }
+    }
+}
+
 #[cfg(all(
     target_arch = "wasm32",
     target_vendor = "unknown",
@@ -308,7 +324,8 @@ mod sysrand_chunk {
 #[cfg(any(
     target_os = "android",
     target_os = "linux",
-    all(target_arch = "wasm32", target_os = "unknown"),
+    // all(target_arch = "wasm32", target_os = "unknown"),
+    target_family = "wasm",
     windows
 ))]
 mod sysrand {

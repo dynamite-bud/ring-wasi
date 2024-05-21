@@ -109,16 +109,22 @@
 #ifndef OPENSSL_HEADER_CRYPTO_INTERNAL_H
 #define OPENSSL_HEADER_CRYPTO_INTERNAL_H
 
-#include <ring-core/base.h> // Must be first.
+#include <ring-core/base.h>  // Must be first.
 
 #include "ring-core/check.h"
+
+#if defined(__clang__)
+// Don't require prototypes for functions defined in C that are only
+// used from Rust.
+#pragma GCC diagnostic ignored "-Wmissing-prototypes"
+#endif
 
 #if defined(__GNUC__) && \
     (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__) < 40800
 // |alignas| and |alignof| were added in C11. GCC added support in version 4.8.
 // Testing for __STDC_VERSION__/__cplusplus doesn't work because 4.7 already
 // reports support for C11.
-#define alignas(x) __attribute__ ((aligned (x)))
+#define alignas(x) __attribute__((aligned(x)))
 #elif defined(_MSC_VER) && !defined(__clang__)
 #define alignas(x) __declspec(align(x))
 #else
@@ -221,9 +227,8 @@ static inline crypto_word constant_time_is_zero_w(crypto_word a) {
   //
   // (declare-fun a () (_ BitVec 32))
   //
-  // (assert (not (= (= #x00000001 (bvlshr (is_zero a) #x0000001f)) (= a #x00000000))))
-  // (check-sat)
-  // (get-model)
+  // (assert (not (= (= #x00000001 (bvlshr (is_zero a) #x0000001f)) (= a
+  // #x00000000)))) (check-sat) (get-model)
   return constant_time_msb_w(~a & (a - 1));
 }
 
@@ -232,8 +237,7 @@ static inline crypto_word constant_time_is_nonzero_w(crypto_word a) {
 }
 
 // constant_time_eq_w returns 0xff..f if a == b and 0 otherwise.
-static inline crypto_word constant_time_eq_w(crypto_word a,
-                                               crypto_word b) {
+static inline crypto_word constant_time_eq_w(crypto_word a, crypto_word b) {
   return constant_time_is_zero_w(a ^ b);
 }
 
@@ -241,8 +245,7 @@ static inline crypto_word constant_time_eq_w(crypto_word a,
 // 1s or all 0s (as returned by the methods above), the select methods return
 // either |a| (if |mask| is nonzero) or |b| (if |mask| is zero).
 static inline crypto_word constant_time_select_w(crypto_word mask,
-                                                   crypto_word a,
-                                                   crypto_word b) {
+                                                 crypto_word a, crypto_word b) {
   // Clang recognizes this pattern as a select. While it usually transforms it
   // to a cmov, it sometimes further transforms it into a branch, which we do
   // not want.
@@ -263,9 +266,7 @@ static inline uint32_t CRYPTO_bswap4(uint32_t x) {
 #include <stdlib.h>
 #pragma warning(pop)
 #pragma intrinsic(_byteswap_uint64, _byteswap_ulong)
-static inline uint32_t CRYPTO_bswap4(uint32_t x) {
-  return _byteswap_ulong(x);
-}
+static inline uint32_t CRYPTO_bswap4(uint32_t x) { return _byteswap_ulong(x); }
 #endif
 
 #if !defined(RING_CORE_NOSTDLIBINC)
@@ -302,5 +303,31 @@ static inline void *OPENSSL_memset(void *dst, int c, size_t n) {
   return dst;
 #endif
 }
+
+
+// Runtime CPU feature support
+
+#if defined(OPENSSL_X86) || defined(OPENSSL_X86_64)
+// OPENSSL_ia32cap_P contains the Intel CPUID bits when running on an x86 or
+// x86-64 system.
+//
+//   Index 0:
+//     EDX for CPUID where EAX = 1
+//     Bit 20 is always zero
+//     Bit 28 is adjusted to reflect whether the data cache is shared between
+//       multiple logical cores
+//     Bit 30 is used to indicate an Intel CPU
+//   Index 1:
+//     ECX for CPUID where EAX = 1
+//     Bit 11 is used to indicate AMD XOP support, not SDBG
+//   Index 2:
+//     EBX for CPUID where EAX = 7
+//   Index 3:
+//     ECX for CPUID where EAX = 7
+//
+// Note: the CPUID bits are pre-adjusted for the OSXSAVE bit and the YMM and XMM
+// bits in XCR0, so it is not necessary to check those.
+extern uint32_t OPENSSL_ia32cap_P[4];
+#endif
 
 #endif  // OPENSSL_HEADER_CRYPTO_INTERNAL_H
